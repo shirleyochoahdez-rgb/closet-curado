@@ -58,24 +58,19 @@
 
     <!-- Encabezado Principal Sticky -->
     <header class="sticky top-0 z-40 bg-cream-50/95 backdrop-blur-md border-b border-cream-200 transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 gap-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between min-h-[5rem] py-2.5 gap-2 sm:gap-4">
                 
-                <!-- Logo / Nombre de la Tienda (Editable) -->
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-sage-600 text-cream-50 flex items-center justify-center shadow-sm shrink-0">
-                        <i class="ph ph-coat-hanger text-xl"></i>
+                <!-- Logo / Nombre de la Tienda -->
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-sage-600 text-cream-50 flex items-center justify-center shadow-sm shrink-0">
+                        <i class="ph ph-coat-hanger text-base sm:text-xl"></i>
                     </div>
-                    <div>
-                        <div class="flex items-center gap-1.5 group">
-                            <h1 id="storeNameDisplay" class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 leading-none">
-                                Still Good y Chuncheretes Meymey
-                            </h1>
-                            <button onclick="openStoreSettingsModal()" title="Personalizar nombre y WhatsApp de tienda" class="text-charcoal-800/40 hover:text-sage-600 transition-colors p-1 rounded-lg">
-                                <i class="ph ph-pencil-simple text-sm"></i>
-                            </button>
-                        </div>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-sage-600 font-medium mt-0.5">Segunda Vida Studio</p>
+                    <div class="min-w-0">
+                        <h1 id="storeNameDisplay" class="font-serif text-base sm:text-2xl lg:text-3xl font-bold tracking-tight text-charcoal-900 leading-tight break-words">
+                            Still Good y Chuncheretes Meymey
+                        </h1>
+                        <p class="text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-sage-600 font-medium mt-0.5">Segunda Vida Studio</p>
                     </div>
                 </div>
 
@@ -93,23 +88,14 @@
                     </div>
                 </div>
 
-                <!-- Acciones: Conectar Inventario (Google Sheets) & Bolsa de Pedido -->
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <button 
-                        onclick="openConnectModal()"
-                        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium text-charcoal-800 bg-cream-100 hover:bg-cream-200 border border-cream-300/70 transition-all"
-                        title="Conectar hoja de Google Sheets y configurar WhatsApp"
-                    >
-                        <i class="ph ph-database text-base text-sage-600"></i>
-                        <span class="hidden sm:inline">Conectar Inventario</span>
-                    </button>
-
+                <!-- Bolsa de Pedido -->
+                <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                     <button 
                         onclick="toggleCartDrawer()"
-                        class="relative inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-charcoal-900 hover:bg-charcoal-800 text-cream-50 text-xs sm:text-sm font-medium shadow-sm transition-all active:scale-95"
+                        class="relative inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-charcoal-900 hover:bg-charcoal-800 text-cream-50 text-xs sm:text-sm font-medium shadow-sm transition-all active:scale-95"
                         aria-label="Ver mi selección"
                     >
-                        <i class="ph ph-bag text-lg"></i>
+                        <i class="ph ph-bag text-base sm:text-lg"></i>
                         <span class="hidden sm:inline">Mi Selección</span>
                         <span id="cartBadge" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-terracotta-500 text-white text-xs font-bold">
                             0
@@ -145,7 +131,7 @@
                     Prendas con alma, listas para su <span class="italic text-sage-600">segunda historia</span>.
                 </h2>
                 <p class="text-charcoal-800/75 text-sm sm:text-base leading-relaxed mb-6">
-                    Al ser prendas únicas de segunda mano, solo hay una unidad disponible por estilo. Además, en <strong>Chuncheretes Meymey</strong> reunimos joyería, cuidado personal, maquillaje, accesorios y chuncheretes lindos para completar tu estilo. ¡Aparta tus favoritos antes de que vuelen!
+                    Cada pieza ha sido inspeccionada, higienizada y medida cuidadosamente. Al ser prendas únicas de segunda mano, solo hay una unidad disponible por estilo. Además, en <strong>Chuncheretes Meymey</strong> reunimos joyería, cuidado personal, maquillaje, accesorios y chuncheretes lindos para completar tu estilo. ¡Aparta tus favoritos antes de que vuelen!
                 </p>
                 <div class="flex flex-wrap items-center gap-4 text-xs text-charcoal-800/70">
                     <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-check-circle text-sage-600 text-base"></i> Calidad verificada</span>
@@ -245,7 +231,7 @@
     <!-- Pie de Página -->
     <footer class="bg-cream-100 border-t border-cream-200 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-cream-200">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8 border-b border-cream-200">
                 <div>
                     <div class="flex items-center gap-2.5 mb-3">
                         <div class="w-8 h-8 rounded-full bg-sage-600 text-cream-50 flex items-center justify-center">
@@ -253,7 +239,7 @@
                         </div>
                         <span id="footerStoreName" class="font-serif text-2xl font-bold text-charcoal-900">Still Good y Chuncheretes Meymey</span>
                     </div>
-                    <p class="text-xs text-charcoal-800/70 leading-relaxed max-w-xs">
+                    <p class="text-xs text-charcoal-800/70 leading-relaxed max-w-md">
                         <strong>Still Good</strong> reúne ropa de segunda mano con segunda historia, y <strong>Chuncheretes Meymey</strong> suma joyería, cuidado personal, maquillaje, accesorios y detalles únicos.
                     </p>
                 </div>
@@ -265,21 +251,6 @@
                         <li class="flex items-start gap-2"><span class="font-bold text-sage-600">2.</span> Agrega tus favoritos a "Mi Selección".</li>
                         <li class="flex items-start gap-2"><span class="font-bold text-sage-600">3.</span> Envía tu lista por WhatsApp para coordinar pago y envío.</li>
                     </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-charcoal-900 mb-3">Gestión de Tienda</h4>
-                    <p class="text-xs text-charcoal-800/70 mb-3">Administra tu inventario desde Google Sheets y sincronízalo aquí:</p>
-                    <div class="flex flex-wrap gap-2">
-                        <button onclick="openConnectModal()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-cream-50 border border-cream-300 text-xs font-semibold text-charcoal-900 shadow-sm transition-all">
-                            <i class="ph ph-database text-sage-600 text-base"></i>
-                            Conectar Inventario (.CSV)
-                        </button>
-                        <button onclick="openStoreSettingsModal()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-cream-50 border border-cream-300 text-xs font-semibold text-charcoal-900 shadow-sm transition-all">
-                            <i class="ph ph-gear text-charcoal-800/70 text-base"></i>
-                            Configurar WhatsApp
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -345,7 +316,7 @@
         </div>
     </aside>
 
-    <!-- MODAL 2: CONECTAR INVENTARIO GOOGLE SHEETS (.CSV) -->
+    <!-- MODAL 2: CONECTAR INVENTARIO GOOGLE SHEETS (.CSV) (SOLO MODO ADMIN ?admin=1) -->
     <div id="connectModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-cream-200 max-h-[90vh] flex flex-col">
             <div class="px-6 py-4 bg-cream-100 border-b border-cream-200 flex items-center justify-between">
@@ -407,7 +378,7 @@
         </div>
     </div>
 
-    <!-- MODAL 3: CONFIGURACIÓN DE TIENDA (NOMBRE Y WHATSAPP) -->
+    <!-- MODAL 3: CONFIGURACIÓN DE TIENDA (SOLO MODO ADMIN ?admin=1) -->
     <div id="storeSettingsModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-cream-200">
             <div class="px-6 py-4 bg-cream-100 border-b border-cream-200 flex items-center justify-between">
@@ -533,6 +504,7 @@
         let products = [];
         let cart = [];
         let visibleLimit = ITEMS_PER_PAGE;
+        let isAdminMode = false;
         let storeSettings = {
             name: DEFAULT_STORE_NAME,
             whatsapp: DEFAULT_WHATSAPP,
@@ -552,6 +524,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            isAdminMode = params.get('admin') === '1';
+
             loadFromStorage();
             applyStoreSettingsUI();
             renderCategoryTabs();
@@ -570,13 +545,21 @@
 
         function loadFromStorage() {
             try {
-                const savedSettings = localStorage.getItem('closetCurado_settings_v2');
-                if (savedSettings) {
-                    const parsed = JSON.parse(savedSettings);
+                if (isAdminMode) {
+                    const savedSettings = localStorage.getItem('closetCurado_settings_v2');
+                    if (savedSettings) {
+                        const parsed = JSON.parse(savedSettings);
+                        storeSettings = {
+                            name: parsed.name || DEFAULT_STORE_NAME,
+                            whatsapp: parsed.whatsapp || DEFAULT_WHATSAPP,
+                            sheetCsv: parsed.sheetCsv !== undefined ? parsed.sheetCsv : DEFAULT_SHEET_CSV
+                        };
+                    }
+                } else {
                     storeSettings = {
-                        name: parsed.name || DEFAULT_STORE_NAME,
-                        whatsapp: parsed.whatsapp || DEFAULT_WHATSAPP,
-                        sheetCsv: parsed.sheetCsv !== undefined ? parsed.sheetCsv : DEFAULT_SHEET_CSV
+                        name: DEFAULT_STORE_NAME,
+                        whatsapp: DEFAULT_WHATSAPP,
+                        sheetCsv: DEFAULT_SHEET_CSV
                     };
                 }
 
@@ -1200,6 +1183,7 @@
         }
 
         function openConnectModal() {
+            if (!isAdminMode) return;
             document.getElementById('sheetCsvInput').value = storeSettings.sheetCsv || '';
             document.getElementById('connectStoreName').value = storeSettings.name || DEFAULT_STORE_NAME;
             document.getElementById('connectWhatsapp').value = storeSettings.whatsapp || DEFAULT_WHATSAPP;
@@ -1217,6 +1201,7 @@
 
         async function saveInventoryConnection(event) {
             event.preventDefault();
+            if (!isAdminMode) return;
             const csvUrl = document.getElementById('sheetCsvInput').value.trim();
             const storeName = document.getElementById('connectStoreName').value.trim() || DEFAULT_STORE_NAME;
             const whatsapp = document.getElementById('connectWhatsapp').value.trim() || DEFAULT_WHATSAPP;
@@ -1243,6 +1228,7 @@
         }
 
         async function syncSheetNow() {
+            if (!isAdminMode) return;
             const csvUrl = document.getElementById('sheetCsvInput').value.trim();
             if (!csvUrl) {
                 showToast('Pega primero el enlace .CSV de Google Sheets', 'ph-info');
@@ -1254,6 +1240,7 @@
         }
 
         function openStoreSettingsModal() {
+            if (!isAdminMode) return;
             document.getElementById('settingsStoreName').value = storeSettings.name;
             document.getElementById('settingsWhatsapp').value = storeSettings.whatsapp;
             const modal = document.getElementById('storeSettingsModal');
@@ -1269,6 +1256,7 @@
 
         function saveStoreSettings(event) {
             event.preventDefault();
+            if (!isAdminMode) return;
             storeSettings.name = document.getElementById('settingsStoreName').value.trim() || DEFAULT_STORE_NAME;
             storeSettings.whatsapp = document.getElementById('settingsWhatsapp').value.trim() || DEFAULT_WHATSAPP;
             
