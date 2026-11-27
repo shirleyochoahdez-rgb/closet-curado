@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clóset Curado | Boutique Pre-Loved & Segunda Mano</title>
+    <title>Still Good y Chuncheretes Meymey | Segunda Mano & Hallazgos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@
     <div class="bg-charcoal-900 text-cream-100 text-xs py-2 px-4 text-center tracking-wide">
         <span class="inline-flex items-center gap-1.5">
             <i class="ph ph-sparkle text-terracotta-500"></i>
-            Piezas únicas seleccionadas a mano • Moda circular con historia • Envíos a todo el país
+            Still Good: ropa de segunda mano • Chuncheretes Meymey: joyería, belleza y hallazgos • Envíos a todo el país
         </span>
     </div>
 
@@ -69,7 +69,7 @@
                     <div>
                         <div class="flex items-center gap-1.5 group">
                             <h1 id="storeNameDisplay" class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 leading-none">
-                                Clóset Curado
+                                Still Good y Chuncheretes Meymey
                             </h1>
                             <button onclick="openStoreSettingsModal()" title="Personalizar nombre y WhatsApp de tienda" class="text-charcoal-800/40 hover:text-sage-600 transition-colors p-1 rounded-lg">
                                 <i class="ph ph-pencil-simple text-sm"></i>
@@ -87,7 +87,7 @@
                             type="text" 
                             id="searchInputDesktop"
                             oninput="handleSearch(this.value)"
-                            placeholder="Buscar blusa lino, jeans vintage, vestido..." 
+                            placeholder="Buscar blusa, collar, labial, chuncheretes..." 
                             class="w-full pl-10 pr-4 py-2.5 bg-cream-100/80 border border-cream-200 rounded-full text-sm text-charcoal-900 placeholder:text-charcoal-800/45 focus:outline-none focus:ring-2 focus:ring-sage-500/40 focus:bg-white transition-all"
                         >
                     </div>
@@ -126,7 +126,7 @@
                         type="text" 
                         id="searchInputMobile"
                         oninput="handleSearch(this.value)"
-                        placeholder="Buscar prendas, telas, estilos..." 
+                        placeholder="Buscar prendas, joyería, maquillaje..." 
                         class="w-full pl-9 pr-4 py-2 bg-cream-100 border border-cream-200 rounded-full text-sm text-charcoal-900 placeholder:text-charcoal-800/45 focus:outline-none focus:ring-2 focus:ring-sage-500/40 focus:bg-white transition-all"
                     >
                 </div>
@@ -145,7 +145,7 @@
                     Prendas con alma, listas para su <span class="italic text-sage-600">segunda historia</span>.
                 </h2>
                 <p class="text-charcoal-800/75 text-sm sm:text-base leading-relaxed mb-6">
-                    Cada pieza ha sido inspeccionada, higienizada y medida cuidadosamente. Al ser prendas únicas de segunda mano, solo hay una unidad disponible por estilo. ¡Aparta tus favoritas antes de que vuelen!
+                    Cada pieza ha sido inspeccionada, higienizada y medida cuidadosamente. Al ser prendas únicas de segunda mano, solo hay una unidad disponible por estilo. Además, en <strong>Chuncheretes Meymey</strong> reunimos joyería, cuidado personal, maquillaje, accesorios y chuncheretes lindos para completar tu estilo. ¡Aparta tus favoritos antes de que vuelen!
                 </p>
                 <div class="flex flex-wrap items-center gap-4 text-xs text-charcoal-800/70">
                     <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-check-circle text-sage-600 text-base"></i> Calidad verificada</span>
@@ -168,7 +168,7 @@
         <div class="mb-6">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-xs font-semibold uppercase tracking-wider text-charcoal-800/60">Explorar por Categoría</h3>
-                <span id="resultsCount" class="text-xs font-medium text-charcoal-800/60">Mostrando 0 prendas</span>
+                <span id="resultsCount" class="text-xs font-medium text-charcoal-800/60">Mostrando 0 artículos</span>
             </div>
             <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar"></div>
         </div>
@@ -211,18 +211,18 @@
             </div>
         </div>
 
-        <!-- Cuadrícula del Catálogo de Prendas -->
+        <!-- Cuadrícula del Catálogo -->
         <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
 
-        <!-- Paginación / Botón Cargar Más para 300+ prendas -->
+        <!-- Paginación / Botón Cargar Más para 300+ artículos -->
         <div id="loadMoreContainer" class="hidden mt-10 text-center">
-            <p id="paginationProgress" class="text-xs text-charcoal-800/60 mb-3">Mostrando 24 de 300 prendas</p>
+            <p id="paginationProgress" class="text-xs text-charcoal-800/60 mb-3">Mostrando 24 de 300 artículos</p>
             <button 
                 onclick="loadMoreProducts()"
                 class="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white hover:bg-cream-100 text-charcoal-900 border border-cream-300 text-xs sm:text-sm font-semibold shadow-xs transition-all active:scale-95"
             >
                 <i class="ph ph-plus text-base text-sage-600"></i>
-                <span>Cargar más prendas</span>
+                <span>Cargar más artículos</span>
             </button>
         </div>
 
@@ -231,9 +231,9 @@
             <div class="w-16 h-16 rounded-full bg-cream-100 text-charcoal-800/40 flex items-center justify-center mx-auto mb-4">
                 <i class="ph ph-coat-hanger text-3xl"></i>
             </div>
-            <h3 class="font-serif text-2xl font-semibold text-charcoal-900 mb-2">No encontramos prendas con ese filtro</h3>
+            <h3 class="font-serif text-2xl font-semibold text-charcoal-900 mb-2">No encontramos artículos con ese filtro</h3>
             <p class="text-sm text-charcoal-800/70 max-w-md mx-auto mb-6">
-                Prueba seleccionando otra talla, cambiando de categoría o limpiando los filtros actuales para explorar todo el clóset disponible.
+                Prueba seleccionando otra talla, cambiando de categoría o limpiando los filtros actuales para explorar todo el catálogo disponible.
             </p>
             <button onclick="resetAllFilters()" class="px-6 py-2.5 rounded-full bg-sage-600 hover:bg-sage-700 text-white text-sm font-medium transition-colors">
                 Ver todo el catálogo
@@ -251,25 +251,25 @@
                         <div class="w-8 h-8 rounded-full bg-sage-600 text-cream-50 flex items-center justify-center">
                             <i class="ph ph-coat-hanger text-base"></i>
                         </div>
-                        <span id="footerStoreName" class="font-serif text-2xl font-bold text-charcoal-900">Clóset Curado</span>
+                        <span id="footerStoreName" class="font-serif text-2xl font-bold text-charcoal-900">Still Good y Chuncheretes Meymey</span>
                     </div>
                     <p class="text-xs text-charcoal-800/70 leading-relaxed max-w-xs">
-                        Moda circular consciente. Seleccionamos prendas de segunda mano en estado impecable para darles una segunda oportunidad con estilo y precios accesibles.
+                        <strong>Still Good</strong> reúne ropa de segunda mano con segunda historia, y <strong>Chuncheretes Meymey</strong> suma joyería, cuidado personal, maquillaje, accesorios y detalles únicos.
                     </p>
                 </div>
 
                 <div>
                     <h4 class="text-xs font-bold uppercase tracking-wider text-charcoal-900 mb-3">¿Cómo comprar?</h4>
                     <ul class="space-y-2 text-xs text-charcoal-800/75">
-                        <li class="flex items-start gap-2"><span class="font-bold text-sage-600">1.</span> Filtra por tu talla o categoría favorita.</li>
-                        <li class="flex items-start gap-2"><span class="font-bold text-sage-600">2.</span> Agrega las piezas únicas a "Mi Selección".</li>
+                        <li class="flex items-start gap-2"><span class="font-bold text-sage-600">1.</span> Filtra por categoría, talla o busca lo que necesites.</li>
+                        <li class="flex items-start gap-2"><span class="font-bold text-sage-600">2.</span> Agrega tus favoritos a "Mi Selección".</li>
                         <li class="flex items-start gap-2"><span class="font-bold text-sage-600">3.</span> Envía tu lista por WhatsApp para coordinar pago y envío.</li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-xs font-bold uppercase tracking-wider text-charcoal-900 mb-3">Gestión de Tienda</h4>
-                    <p class="text-xs text-charcoal-800/70 mb-3">Administra tus cientos de prendas desde Google Sheets y sincronízalas aquí:</p>
+                    <p class="text-xs text-charcoal-800/70 mb-3">Administra tu inventario desde Google Sheets y sincronízalo aquí:</p>
                     <div class="flex flex-wrap gap-2">
                         <button onclick="openConnectModal()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-cream-50 border border-cream-300 text-xs font-semibold text-charcoal-900 shadow-sm transition-all">
                             <i class="ph ph-database text-sage-600 text-base"></i>
@@ -284,17 +284,17 @@
             </div>
 
             <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-charcoal-800/60">
-                <p>© 2026 Clóset Curado • Todos los derechos reservados.</p>
-                <p>Precios expresados en Quetzales (GTQ) • Piezas únicas sujetas a disponibilidad.</p>
+                <p>© 2026 Still Good y Chuncheretes Meymey • Todos los derechos reservados.</p>
+                <p>Precios expresados en Quetzales (GTQ) • Sujeto a disponibilidad.</p>
             </div>
         </div>
     </footer>
 
-    <!-- MODAL 1: DETALLES DE LA PRENDA -->
+    <!-- MODAL 1: DETALLES DEL ARTÍCULO -->
     <div id="productDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-cream-200 max-h-[90vh] flex flex-col">
             <div class="flex items-center justify-between px-6 py-4 border-b border-cream-100">
-                <span class="text-xs font-semibold uppercase tracking-wider text-sage-600">Ficha de Prenda Única</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-sage-600">Detalle del Artículo</span>
                 <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-cream-100 hover:bg-cream-200 flex items-center justify-center text-charcoal-900 transition-colors">
                     <i class="ph ph-x text-lg"></i>
                 </button>
@@ -311,7 +311,7 @@
                 <i class="ph-fill ph-bag text-xl text-sage-600"></i>
                 <div>
                     <h3 class="font-serif text-2xl font-bold text-charcoal-900 leading-none">Mi Selección</h3>
-                    <p class="text-xs text-charcoal-800/60 mt-1">Piezas únicas apartadas en tu bolsa</p>
+                    <p class="text-xs text-charcoal-800/60 mt-1">Artículos apartados en tu bolsa</p>
                 </div>
             </div>
             <button onclick="toggleCartDrawer()" class="w-9 h-9 rounded-full bg-cream-100 hover:bg-cream-200 flex items-center justify-center text-charcoal-900 transition-colors">
@@ -323,8 +323,8 @@
 
         <div id="cartFooter" class="p-6 bg-white border-t border-cream-200">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-sm text-charcoal-800/75">Prendas seleccionadas:</span>
-                <span id="cartSummaryCount" class="text-sm font-semibold text-charcoal-900">0 piezas</span>
+                <span class="text-sm text-charcoal-800/75">Artículos seleccionados:</span>
+                <span id="cartSummaryCount" class="text-sm font-semibold text-charcoal-900">0 artículos</span>
             </div>
             <div class="flex items-center justify-between mb-5 pb-4 border-b border-cream-100">
                 <span class="text-base font-semibold text-charcoal-900">Total estimado:</span>
@@ -438,15 +438,23 @@
     <div id="toastNotification" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
         <div class="bg-charcoal-900 text-cream-50 px-5 py-3 rounded-full shadow-xl flex items-center gap-2.5 text-xs sm:text-sm font-medium border border-charcoal-800">
             <i id="toastIcon" class="ph-fill ph-check-circle text-sage-500 text-lg"></i>
-            <span id="toastMessage">Prenda agregada a tu selección</span>
+            <span id="toastMessage">Artículo agregado a tu selección</span>
         </div>
     </div>
 
     <script>
         const DEFAULT_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0ugiok1reX3g8vTYB7jxwMEJ-ZIM7qjw1OPxbz3yuh2dmYCRE1qMHWMis_8eKLohOJslnXggnIUJm/pub?gid=599845359&single=true&output=csv';
-        const DEFAULT_STORE_NAME = 'Clóset Curado';
+        const DEFAULT_STORE_NAME = 'Still Good y Chuncheretes Meymey';
         const DEFAULT_WHATSAPP = '50245963280';
         const ITEMS_PER_PAGE = 24;
+
+        const NON_APPAREL_CATEGORIES = [
+            'Joyería',
+            'Cuidado personal',
+            'Maquillaje',
+            'Accesorios',
+            'Chuncheretes'
+        ];
 
         const DEFAULT_PRODUCTS = [
             {
@@ -457,7 +465,7 @@
                 price: 85.00,
                 condition: 'Como nuevo',
                 measurements: 'Busto: 96 cm • Largo: 60 cm',
-                description: 'Blusa ligera 100% lino natural con botones frontales tipo coco y cuello relajado. Sin detalles de uso, caída impecable.',
+                description: 'Blusa ligera 100% lino natural con botones frontales tipo coco y cuello relajado.',
                 image: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=800&q=80'
             },
             {
@@ -468,52 +476,30 @@
                 price: 135.00,
                 condition: 'Vintage',
                 measurements: 'Cintura: 70 cm • Cadera: 96 cm • Largo: 98 cm',
-                description: 'Denim rígido de alta calidad en lavado azul claro clásico. Corte recto favorecedor estilo años 90.',
+                description: 'Denim rígido de alta calidad en lavado azul claro clásico.',
                 image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80'
             },
             {
                 id: 'prod-3',
-                name: 'Vestido Midi Floral Terracota',
-                category: 'Vestidos y Enterizos',
-                size: 'M',
-                price: 145.00,
+                name: 'Collar Dorado con Dije Minimalista',
+                category: 'Joyería',
+                size: '',
+                price: 55.00,
                 condition: 'Como nuevo',
-                measurements: 'Busto: 92 cm • Cintura elástica: 72-84 cm • Largo: 115 cm',
-                description: 'Vestido fluido con estampado botánico suave, mangas abullonadas delicadas y abertura lateral sutil.',
-                image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80'
+                measurements: '',
+                description: 'Cadena fina tono dorado que combina con todo, ideal para diario.',
+                image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80'
             },
             {
                 id: 'prod-4',
-                name: 'Blazer Sastre Oversize Arena',
-                category: 'Abrigos y Chaquetas',
-                size: 'L',
-                price: 175.00,
-                condition: 'Excelente estado',
-                measurements: 'Hombros: 43 cm • Busto: 106 cm • Largo: 74 cm',
-                description: 'Saco estructurado con forro interior completo y hombreras suaves. Ideal para elevar cualquier look casual o de oficina.',
-                image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-5',
-                name: 'Suéter Tejido Punto Grueso Verde Salvia',
-                category: 'Prendas de arriba',
-                size: 'S',
-                price: 110.00,
+                name: 'Tinta de Labios Tono Rosa Frambuesa',
+                category: 'Maquillaje',
+                size: '',
+                price: 45.00,
                 condition: 'Como nuevo',
-                measurements: 'Busto: 94 cm • Largo: 55 cm',
-                description: 'Tejido suave de algodón que no pica, cuello redondo acanalado y tono verde salvia súper combinable.',
-                image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-6',
-                name: 'Falda Plisada Satinada Champán',
-                category: 'Prendas de abajo',
-                size: 'M',
-                price: 95.00,
-                condition: 'Excelente estado',
-                measurements: 'Cintura: 74 cm • Largo: 82 cm',
-                description: 'Falda midi con movimiento fluido y brillo satinado elegante. Cintura oculta de ajuste cómodo.',
-                image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=800&q=80'
+                measurements: '',
+                description: 'Acabado natural de larga duración, fácil de difuminar.',
+                image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80'
             }
         ];
 
@@ -523,7 +509,11 @@
             { id: 'Prendas de abajo', label: 'Prendas de abajo', icon: 'ph-pants' },
             { id: 'Vestidos y Enterizos', label: 'Vestidos y Enterizos', icon: 'ph-dress' },
             { id: 'Abrigos y Chaquetas', label: 'Abrigos y Chaquetas', icon: 'ph-coat-hanger' },
-            { id: 'Accesorios y Calzado', label: 'Accesorios y Calzado', icon: 'ph-handbag' }
+            { id: 'Joyería', label: 'Joyería', icon: 'ph-diamond' },
+            { id: 'Cuidado personal', label: 'Cuidado personal', icon: 'ph-drop' },
+            { id: 'Maquillaje', label: 'Maquillaje', icon: 'ph-lipstick' },
+            { id: 'Accesorios', label: 'Accesorios', icon: 'ph-handbag' },
+            { id: 'Chuncheretes', label: 'Chuncheretes', icon: 'ph-sparkle' }
         ];
 
         const SIZES = ['Todas', 'XS', 'S', 'M', 'L', 'XL', 'Única'];
@@ -533,7 +523,11 @@
             'Prendas de abajo': 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&w=800&q=80',
             'Vestidos y Enterizos': 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
             'Abrigos y Chaquetas': 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
-            'Accesorios y Calzado': 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80'
+            'Joyería': 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+            'Cuidado personal': 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80',
+            'Maquillaje': 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
+            'Accesorios': 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+            'Chuncheretes': 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80'
         };
 
         let products = [];
@@ -552,6 +546,10 @@
             search: '',
             sort: 'recent'
         };
+
+        function isNonApparelCategory(category) {
+            return NON_APPAREL_CATEGORIES.some(c => c.toLowerCase() === (category || '').toLowerCase());
+        }
 
         document.addEventListener('DOMContentLoaded', async () => {
             loadFromStorage();
@@ -627,7 +625,7 @@
                 const parsedItems = parseInventoryCSV(csvText);
 
                 if (parsedItems.length === 0) {
-                    throw new Error('La hoja no contiene prendas disponibles con disponible = SI');
+                    throw new Error('La hoja no contiene artículos disponibles con disponible = SI');
                 }
 
                 products = parsedItems;
@@ -637,9 +635,9 @@
                 renderProducts();
                 updateCartUI();
 
-                statusText.innerHTML = `<i class="ph-fill ph-check-circle text-sage-600 text-base"></i> Inventario conectado en vivo (${products.length} prendas disponibles)`;
+                statusText.innerHTML = `<i class="ph-fill ph-check-circle text-sage-600 text-base"></i> Inventario conectado en vivo (${products.length} artículos disponibles)`;
                 if (notifyUser) {
-                    showToast(`¡Catálogo actualizado! ${products.length} prendas cargadas`, 'ph-check-circle');
+                    showToast(`¡Catálogo actualizado! ${products.length} artículos cargados`, 'ph-check-circle');
                 }
             } catch (error) {
                 console.error('Error sincronizando Google Sheets:', error);
@@ -715,7 +713,11 @@
                 'Prendas de abajo',
                 'Vestidos y Enterizos',
                 'Abrigos y Chaquetas',
-                'Accesorios y Calzado'
+                'Joyería',
+                'Cuidado personal',
+                'Maquillaje',
+                'Accesorios',
+                'Chuncheretes'
             ];
 
             const items = [];
@@ -731,23 +733,28 @@
                 const name = idx.nombre !== -1 ? row[idx.nombre] : '';
                 if (!name) continue;
 
-                const rawCat = idx.categoria !== -1 ? row[idx.categoria] : 'Prendas de arriba';
-                const matchedCat = validCategories.find(c => c.toLowerCase() === rawCat.toLowerCase()) || 'Prendas de arriba';
+                const rawCat = idx.categoria !== -1 ? (row[idx.categoria] || '').trim() : '';
+                const matchedCat = validCategories.find(c => c.toLowerCase() === rawCat.toLowerCase()) || 'Chuncheretes';
 
                 const rawPrice = idx.precio !== -1 ? row[idx.precio].replace(/[^0-9.]/g, '') : '0';
                 const price = parseFloat(rawPrice) || 0;
 
                 const rawImage = idx.imagen !== -1 ? row[idx.imagen] : '';
+                const rawSize = idx.talla !== -1 ? (row[idx.talla] || '').trim() : '';
+                const isNonApparel = isNonApparelCategory(matchedCat);
+                const finalSize = rawSize || (isNonApparel ? '' : 'Única');
+
+                const rawDesc = idx.descripcion !== -1 ? (row[idx.descripcion] || '').trim() : '';
 
                 items.push({
                     id: (idx.id !== -1 && row[idx.id]) ? 'sheet-' + row[idx.id] : 'sheet-row-' + r,
                     name: name,
                     category: matchedCat,
-                    size: (idx.talla !== -1 && row[idx.talla]) ? row[idx.talla] : 'Única',
+                    size: finalSize,
                     price: price,
                     condition: (idx.estado !== -1 && row[idx.estado]) ? row[idx.estado] : 'Excelente estado',
                     measurements: (idx.medidas !== -1 && row[idx.medidas]) ? row[idx.medidas] : '',
-                    description: (idx.descripcion !== -1 && row[idx.descripcion]) ? row[idx.descripcion] : 'Prenda única seleccionada a mano en excelente estado.',
+                    description: rawDesc,
                     image: rawImage || CATEGORY_FALLBACK_IMAGES[matchedCat]
                 });
             }
@@ -811,15 +818,15 @@
         function getFilteredProducts() {
             let filtered = products.filter(product => {
                 const matchesCategory = filters.category === 'Todas' || product.category === filters.category;
-                const matchesSize = filters.size === 'Todas' || product.size === filters.size;
+                const matchesSize = filters.size === 'Todas' || (product.size && product.size.toLowerCase() === filters.size.toLowerCase());
                 const matchesCondition = filters.condition === 'Todos' || product.condition === filters.condition;
                 
                 const query = filters.search.trim().toLowerCase();
                 const matchesSearch = !query || 
                     product.name.toLowerCase().includes(query) ||
-                    product.description.toLowerCase().includes(query) ||
+                    (product.description && product.description.toLowerCase().includes(query)) ||
                     product.category.toLowerCase().includes(query) ||
-                    product.size.toLowerCase().includes(query);
+                    (product.size && product.size.toLowerCase().includes(query));
 
                 return matchesCategory && matchesSize && matchesCondition && matchesSearch;
             });
@@ -842,7 +849,7 @@
             const paginationProgress = document.getElementById('paginationProgress');
 
             const filtered = getFilteredProducts();
-            resultsCount.textContent = `Mostrando ${filtered.length} ${filtered.length === 1 ? 'prenda única' : 'prendas únicas'}`;
+            resultsCount.textContent = `Mostrando ${filtered.length} ${filtered.length === 1 ? 'artículo' : 'artículos'}`;
 
             const hasActiveFilters = filters.category !== 'Todas' || filters.size !== 'Todas' || filters.condition !== 'Todos' || filters.search.trim() !== '';
             resetBtn.classList.toggle('hidden', !hasActiveFilters);
@@ -861,7 +868,7 @@
             const paginatedItems = filtered.slice(0, visibleLimit);
             if (filtered.length > visibleLimit) {
                 loadMoreContainer.classList.remove('hidden');
-                paginationProgress.textContent = `Mostrando ${paginatedItems.length} de ${filtered.length} prendas disponibles`;
+                paginationProgress.textContent = `Mostrando ${paginatedItems.length} de ${filtered.length} artículos disponibles`;
             } else {
                 loadMoreContainer.classList.add('hidden');
             }
@@ -869,7 +876,8 @@
             grid.innerHTML = paginatedItems.map(product => {
                 const isInCart = cart.includes(product.id);
                 const badgeStyle = getConditionBadgeStyle(product.condition);
-                const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Prenda+Curada';
+                const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Still+Good+%26+Meymey';
+                const showSizeBadge = Boolean(product.size) && !isNonApparelCategory(product.category);
 
                 return `
                     <article class="group bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
@@ -887,15 +895,16 @@
                                     ${product.condition}
                                 </span>
                                 <span class="px-2.5 py-1 rounded-full bg-charcoal-900/85 text-cream-50 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-md">
-                                    Pieza única
+                                    Disponible
                                 </span>
                             </div>
 
+                            ${showSizeBadge ? `
                             <div class="absolute bottom-3 left-3">
                                 <span class="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-white/95 text-charcoal-900 text-xs font-bold shadow-sm border border-cream-200">
                                     Talla ${product.size}
                                 </span>
-                            </div>
+                            </div>` : ''}
                         </div>
 
                         <div class="p-5 flex-1 flex flex-col">
@@ -907,9 +916,10 @@
                                 ${product.name}
                             </h3>
 
+                            ${product.description ? `
                             <p class="text-xs text-charcoal-800/70 line-clamp-2 mb-3 leading-relaxed">
                                 ${product.description}
-                            </p>
+                            </p>` : '<div class="mb-3"></div>'}
 
                             ${product.measurements ? `
                                 <p class="text-[11px] text-charcoal-800/60 bg-cream-50 px-2.5 py-1.5 rounded-lg border border-cream-200/60 mb-4 truncate">
@@ -1024,9 +1034,10 @@
             if (!product) return;
 
             const isInCart = cart.includes(product.id);
-            const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Prenda+Curada';
+            const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Still+Good+%26+Meymey';
             const modal = document.getElementById('productDetailModal');
             const body = document.getElementById('productModalBody');
+            const showSizeRow = Boolean(product.size) && !isNonApparelCategory(product.category);
 
             body.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
@@ -1042,19 +1053,21 @@
                             <h3 class="font-serif text-3xl font-bold text-charcoal-900 leading-tight mb-2">${product.name}</h3>
                             <p class="font-serif text-3xl font-bold text-sage-600 mb-4">${formatQuetzales(product.price)}</p>
 
+                            ${(showSizeRow || product.measurements) ? `
                             <div class="bg-cream-50 rounded-2xl p-3.5 border border-cream-200 space-y-2 mb-4">
+                                ${showSizeRow ? `
                                 <div class="flex items-center justify-between text-xs">
-                                    <span class="text-charcoal-800/65">Talla etiquetada:</span>
+                                    <span class="text-charcoal-800/65">Talla:</span>
                                     <span class="font-bold text-charcoal-900 px-2.5 py-0.5 bg-white rounded-lg border border-cream-200">${product.size}</span>
-                                </div>
+                                </div>` : ''}
                                 ${product.measurements ? `
-                                <div class="text-xs pt-2 border-t border-cream-200/70">
-                                    <span class="block text-charcoal-800/65 mb-0.5">Medidas reales:</span>
+                                <div class="text-xs ${showSizeRow ? 'pt-2 border-t border-cream-200/70' : ''}">
+                                    <span class="block text-charcoal-800/65 mb-0.5">Detalles / Medidas:</span>
                                     <span class="font-semibold text-charcoal-900">${product.measurements}</span>
                                 </div>` : ''}
-                            </div>
+                            </div>` : ''}
 
-                            <p class="text-sm text-charcoal-800/80 leading-relaxed">${product.description}</p>
+                            ${product.description ? `<p class="text-sm text-charcoal-800/80 leading-relaxed whitespace-pre-line">${product.description}</p>` : ''}
                         </div>
 
                         <div class="pt-4 border-t border-cream-100">
@@ -1067,7 +1080,7 @@
                                 }"
                             >
                                 <i class="ph ${isInCart ? 'ph-trash' : 'ph-bag-plus'} text-lg"></i>
-                                <span>${isInCart ? 'Quitar de Mi Selección' : 'Apartar esta prenda única'}</span>
+                                <span>${isInCart ? 'Quitar de Mi Selección' : 'Apartar este artículo'}</span>
                             </button>
                         </div>
                     </div>
@@ -1088,10 +1101,10 @@
             const index = cart.indexOf(productId);
             if (index > -1) {
                 cart.splice(index, 1);
-                showToast('Prenda retirada de tu selección', 'ph-info');
+                showToast('Artículo retirado de tu selección', 'ph-info');
             } else {
                 cart.push(productId);
-                showToast('¡Prenda única apartada en tu bolsa!', 'ph-check-circle');
+                showToast('¡Artículo apartado en tu bolsa!', 'ph-check-circle');
             }
             saveCartToStorage();
             renderProducts();
@@ -1121,7 +1134,7 @@
 
             const selectedProducts = products.filter(p => cart.includes(p.id));
             badge.textContent = selectedProducts.length;
-            summaryCount.textContent = `${selectedProducts.length} ${selectedProducts.length === 1 ? 'pieza' : 'piezas'}`;
+            summaryCount.textContent = `${selectedProducts.length} ${selectedProducts.length === 1 ? 'artículo' : 'artículos'}`;
 
             const total = selectedProducts.reduce((sum, item) => sum + Number(item.price), 0);
             totalAmount.textContent = formatQuetzales(total);
@@ -1135,14 +1148,16 @@
                         </div>
                         <h4 class="font-serif text-2xl font-semibold text-charcoal-900 mb-1">Tu bolsa está vacía</h4>
                         <p class="text-xs text-charcoal-800/65 max-w-xs">
-                            Explora el catálogo y agrega las prendas únicas que quieras apartar.
+                            Explora el catálogo y agrega los artículos que quieras apartar.
                         </p>
                     </div>
                 `;
                 return;
             }
 
-            container.innerHTML = selectedProducts.map(item => `
+            container.innerHTML = selectedProducts.map(item => {
+                const showSize = Boolean(item.size) && !isNonApparelCategory(item.category);
+                return `
                 <div class="flex gap-3.5 bg-white p-3.5 rounded-2xl border border-cream-200 shadow-xs">
                     <img src="${item.image}" alt="${item.name}" class="w-20 h-24 rounded-xl object-cover bg-cream-100 shrink-0">
                     <div class="flex-1 min-w-0 flex flex-col justify-between">
@@ -1153,15 +1168,16 @@
                                     <i class="ph ph-trash text-base"></i>
                                 </button>
                             </div>
-                            <p class="text-xs text-charcoal-800/65 mt-0.5">Talla: <strong>${item.size}</strong> • ${item.condition}</p>
+                            <p class="text-xs text-charcoal-800/65 mt-0.5">${showSize ? `Talla: <strong>${item.size}</strong> • ` : ''}${item.condition}</p>
                         </div>
                         <div class="flex items-center justify-between mt-2">
-                            <span class="text-[11px] text-sage-600 font-medium">1 pieza única</span>
+                            <span class="text-[11px] text-sage-600 font-medium">${item.category}</span>
                             <span class="font-serif text-lg font-bold text-charcoal-900">${formatQuetzales(item.price)}</span>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         function sendWhatsAppOrder() {
@@ -1171,9 +1187,11 @@
             const cleanPhone = storeSettings.whatsapp.replace(/\D/g, '');
             const total = selectedProducts.reduce((sum, item) => sum + Number(item.price), 0);
 
-            let message = `¡Hola *${storeSettings.name}*! 👋 Me gustaría apartar estas prendas únicas:\n\n`;
+            let message = `¡Hola *${storeSettings.name}*! 👋 Me gustaría apartar estos artículos:\n\n`;
             selectedProducts.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}* (Talla ${item.size}) - ${formatQuetzales(item.price)}\n`;
+                const showSize = Boolean(item.size) && !isNonApparelCategory(item.category);
+                const sizeText = showSize ? ` (Talla ${item.size})` : '';
+                message += `${index + 1}. *${item.name}*${sizeText} - ${formatQuetzales(item.price)}\n`;
             });
             message += `\n*Total estimado:* ${formatQuetzales(total)}\n¿Me confirman disponibilidad?`;
 
@@ -1263,7 +1281,7 @@
         function applyStoreSettingsUI() {
             document.getElementById('storeNameDisplay').textContent = storeSettings.name;
             document.getElementById('footerStoreName').textContent = storeSettings.name;
-            document.title = `${storeSettings.name} | Boutique Pre-Loved & Segunda Mano`;
+            document.title = `${storeSettings.name} | Segunda Mano & Hallazgos`;
         }
 
         let toastTimeout;
