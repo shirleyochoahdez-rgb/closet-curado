@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clóset Curado | Boutique Pre-Loved & Segunda Mano</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Cormorant Garamond (editorial) & Plus Jakarta Sans (limpia y moderna) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Phosphor Icons para iconografía minimalista de boutique -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <script>
@@ -173,9 +170,7 @@
                 <h3 class="text-xs font-semibold uppercase tracking-wider text-charcoal-800/60">Explorar por Categoría</h3>
                 <span id="resultsCount" class="text-xs font-medium text-charcoal-800/60">Mostrando 0 prendas</span>
             </div>
-            <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-                <!-- Se genera dinámicamente -->
-            </div>
+            <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar"></div>
         </div>
 
         <!-- Barra Secundaria: Filtro Rápido por Talla, Estado y Orden -->
@@ -186,9 +181,7 @@
                 <span class="text-xs font-semibold text-charcoal-800/70 mr-1 flex items-center gap-1">
                     <i class="ph ph-ruler text-sage-600 text-sm"></i> Talla:
                 </span>
-                <div id="sizeFilters" class="flex flex-wrap gap-1.5">
-                    <!-- Botones de talla generados por JS -->
-                </div>
+                <div id="sizeFilters" class="flex flex-wrap gap-1.5"></div>
             </div>
 
             <!-- Filtro de Estado y Ordenamiento -->
@@ -219,9 +212,7 @@
         </div>
 
         <!-- Cuadrícula del Catálogo de Prendas -->
-        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Tarjetas de producto renderizadas por JavaScript -->
-        </div>
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
 
         <!-- Paginación / Botón Cargar Más para 300+ prendas -->
         <div id="loadMoreContainer" class="hidden mt-10 text-center">
@@ -299,31 +290,22 @@
         </div>
     </footer>
 
-    <!-- =====================================================================
-         MODAL 1: DETALLES DE LA PRENDA
-    ====================================================================== -->
+    <!-- MODAL 1: DETALLES DE LA PRENDA -->
     <div id="productDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-cream-200 animate-[fadeIn_0.2s_ease-out] max-h-[90vh] flex flex-col">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-cream-200 max-h-[90vh] flex flex-col">
             <div class="flex items-center justify-between px-6 py-4 border-b border-cream-100">
                 <span class="text-xs font-semibold uppercase tracking-wider text-sage-600">Ficha de Prenda Única</span>
                 <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-cream-100 hover:bg-cream-200 flex items-center justify-center text-charcoal-900 transition-colors">
                     <i class="ph ph-x text-lg"></i>
                 </button>
             </div>
-
-            <div id="productModalBody" class="overflow-y-auto p-6">
-                <!-- Contenido inyectado dinámicamente -->
-            </div>
+            <div id="productModalBody" class="overflow-y-auto p-6"></div>
         </div>
     </div>
 
-    <!-- =====================================================================
-         PANEL LATERAL (DRAWER): MI SELECCIÓN / PEDIDO WHATSAPP
-    ====================================================================== -->
+    <!-- PANEL LATERAL (DRAWER): MI SELECCIÓN / PEDIDO WHATSAPP -->
     <div id="cartDrawerBackdrop" onclick="toggleCartDrawer()" class="fixed inset-0 z-50 hidden bg-charcoal-900/50 backdrop-blur-xs transition-opacity"></div>
     <aside id="cartDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-cream-50 shadow-2xl border-l border-cream-200 transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
-        
-        <!-- Header del Drawer -->
         <div class="px-6 py-5 bg-white border-b border-cream-200 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
                 <i class="ph-fill ph-bag text-xl text-sage-600"></i>
@@ -337,12 +319,8 @@
             </button>
         </div>
 
-        <!-- Lista de Prendas Seleccionadas -->
-        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
-            <!-- Renderizado dinámico -->
-        </div>
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
 
-        <!-- Resumen y Botón WhatsApp -->
         <div id="cartFooter" class="p-6 bg-white border-t border-cream-200">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-sm text-charcoal-800/75">Prendas seleccionadas:</span>
@@ -367,9 +345,7 @@
         </div>
     </aside>
 
-    <!-- =====================================================================
-         MODAL 2: CONECTAR INVENTARIO GOOGLE SHEETS (.CSV)
-    ====================================================================== -->
+    <!-- MODAL 2: CONECTAR INVENTARIO GOOGLE SHEETS (.CSV) -->
     <div id="connectModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-cream-200 max-h-[90vh] flex flex-col">
             <div class="px-6 py-4 bg-cream-100 border-b border-cream-200 flex items-center justify-between">
@@ -431,9 +407,7 @@
         </div>
     </div>
 
-    <!-- =====================================================================
-         MODAL 3: CONFIGURACIÓN DE TIENDA (NOMBRE Y WHATSAPP)
-    ====================================================================== -->
+    <!-- MODAL 3: CONFIGURACIÓN DE TIENDA (NOMBRE Y WHATSAPP) -->
     <div id="storeSettingsModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-sm">
         <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-cream-200">
             <div class="px-6 py-4 bg-cream-100 border-b border-cream-200 flex items-center justify-between">
@@ -469,19 +443,11 @@
     </div>
 
     <script>
-        /* =====================================================================
-           CONFIGURACIÓN FIJA PARA PUBLICAR EN NETLIFY (EDITA ESTAS 3 LÍNEAS)
-           Pega aquí tus datos reales antes de subir index.html a Netlify para
-           que tus clientas vean tu inventario directo sin configurar nada.
-        ===================================================================== */
-        const DEFAULT_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0ugiok1reX3g8vTYB7jxwMEJ-ZIM7qjw1OPxbz3yuh2dmYCRE1qMHWMis_8eKLohOJslnXggnIUJm/pub?gid=599845359&single=true&output=csv'; // Ej: 'https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?output=csv'
+        const DEFAULT_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0ugiok1reX3g8vTYB7jxwMEJ-ZIM7qjw1OPxbz3yuh2dmYCRE1qMHWMis_8eKLohOJslnXggnIUJm/pub?gid=599845359&single=true&output=csv';
         const DEFAULT_STORE_NAME = 'Clóset Curado';
         const DEFAULT_WHATSAPP = '50245963280';
-        const ITEMS_PER_PAGE = 24; // Cantidad de prendas mostradas por bloque para carga ultrarrápida
+        const ITEMS_PER_PAGE = 24;
 
-        /* =====================================================================
-           DATOS INICIALES CURADOS (CATÁLOGO DE MUESTRA PROFESIONAL)
-        ===================================================================== */
         const DEFAULT_PRODUCTS = [
             {
                 id: 'prod-1',
@@ -548,72 +514,6 @@
                 measurements: 'Cintura: 74 cm • Largo: 82 cm',
                 description: 'Falda midi con movimiento fluido y brillo satinado elegante. Cintura oculta de ajuste cómodo.',
                 image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-7',
-                name: 'Bolso Tote de Cuero Vegano Trenzado',
-                category: 'Accesorios y Calzado',
-                size: 'Única',
-                price: 120.00,
-                condition: 'Como nuevo',
-                measurements: 'Ancho: 34 cm • Alto: 28 cm',
-                description: 'Bolso estructurado en tono caramelo cálido con bolsillo interno con cierre y asas reforzadas.',
-                image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-8',
-                name: 'Camisa Rayas Azules Corte Clásico',
-                category: 'Prendas de arriba',
-                size: 'XL',
-                price: 75.00,
-                condition: 'Excelente estado',
-                measurements: 'Busto: 114 cm • Largo: 72 cm',
-                description: 'Camisa de popelina de algodón fresca, ideal para usar abierta sobre un top blanco o fajada.',
-                image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-9',
-                name: 'Enterizo Culotte Negro Minimalista',
-                category: 'Vestidos y Enterizos',
-                size: 'XS',
-                price: 130.00,
-                condition: 'Como nuevo',
-                measurements: 'Busto: 84 cm • Cintura: 64 cm • Largo: 128 cm',
-                description: 'Jumpsuit de pierna ancha con tirantes ajustables y bolsillos laterales ocultos. Muy versátil.',
-                image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-10',
-                name: 'Chaqueta Denim Clásica Lavado Medio',
-                category: 'Abrigos y Chaquetas',
-                size: 'M',
-                price: 140.00,
-                condition: 'Vintage',
-                measurements: 'Busto: 100 cm • Largo: 59 cm',
-                description: 'Chaqueta de mezclilla atemporal con botones metálicos originales y desgaste natural auténtico.',
-                image: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-11',
-                name: 'Pantalón Palazzo Pinzas Beige',
-                category: 'Prendas de abajo',
-                size: 'L',
-                price: 115.00,
-                condition: 'Como nuevo',
-                measurements: 'Cintura: 82 cm • Cadera: 108 cm • Largo: 104 cm',
-                description: 'Pantalón de vestir fluido de tiro alto con pinzas frontales que estilizan la silueta.',
-                image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                id: 'prod-12',
-                name: 'Mocasines Clásicos Piel Sintética Café',
-                category: 'Accesorios y Calzado',
-                size: 'Única',
-                price: 125.00,
-                condition: 'Excelente estado',
-                measurements: 'Talla calzado: 38 EU / 7.5 US (Plantilla 24.5 cm)',
-                description: 'Mocasines cómodos con detalle dorado minimalista y suela antideslizante apenas usada.',
-                image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80'
             }
         ];
 
@@ -628,7 +528,6 @@
 
         const SIZES = ['Todas', 'XS', 'S', 'M', 'L', 'XL', 'Única'];
 
-        // Imágenes de respaldo por categoría si el usuario agrega una prenda sin URL
         const CATEGORY_FALLBACK_IMAGES = {
             'Prendas de arriba': 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=800&q=80',
             'Prendas de abajo': 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&w=800&q=80',
@@ -637,11 +536,8 @@
             'Accesorios y Calzado': 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80'
         };
 
-        /* =====================================================================
-           ESTADO DE LA APLICACIÓN
-        ===================================================================== */
         let products = [];
-        let cart = []; // Array de IDs de prendas únicas seleccionadas
+        let cart = [];
         let visibleLimit = ITEMS_PER_PAGE;
         let storeSettings = {
             name: DEFAULT_STORE_NAME,
@@ -657,9 +553,6 @@
             sort: 'recent'
         };
 
-        /* =====================================================================
-           INICIALIZACIÓN Y CONEXIÓN A GOOGLE SHEETS (.CSV)
-        ===================================================================== */
         document.addEventListener('DOMContentLoaded', async () => {
             loadFromStorage();
             applyStoreSettingsUI();
@@ -726,7 +619,6 @@
                 statusBar.classList.remove('hidden');
                 statusText.innerHTML = '<i class="ph ph-spinner animate-spin text-base"></i> Sincronizando catálogo desde Google Sheets...';
 
-                // Agregar parámetro anti-caché para traer cambios recientes
                 const cacheBuster = (csvUrl.includes('?') ? '&' : '?') + '_t=' + Date.now();
                 const response = await fetch(csvUrl + cacheBuster);
                 if (!response.ok) throw new Error('No se pudo descargar el archivo CSV');
@@ -764,7 +656,6 @@
             }
         }
 
-        // Parser robusto de CSV que soporta comillas, comas internas y saltos de línea
         function parseInventoryCSV(text) {
             const rows = [];
             let currentRow = [];
@@ -802,7 +693,6 @@
 
             if (rows.length < 2) return [];
 
-            // Normalizar encabezados (minúsculas y sin tildes)
             const headers = rows[0].map(h =>
                 h.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()
             );
@@ -834,7 +724,6 @@
                 const rawAvailable = idx.disponible !== -1 ? (row[idx.disponible] || 'SI').toUpperCase() : 'SI';
                 const cleanAvailable = rawAvailable.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
-                // Filtrar solo prendas disponibles (SI)
                 if (cleanAvailable !== 'SI' && cleanAvailable !== 'YES' && cleanAvailable !== '1') {
                     continue;
                 }
@@ -865,27 +754,7 @@
 
             return items;
         }
-            
 
-        function saveProductsToStorage() {
-            try {
-                localStorage.setItem('closetCurado_products_v1', JSON.stringify(products));
-            } catch (e) {
-                console.error('Error guardando productos:', e);
-            }
-        }
-
-        function saveCartToStorage() {
-            try {
-                localStorage.setItem('closetCurado_cart_v1', JSON.stringify(cart));
-            } catch (e) {
-                console.error('Error guardando selección:', e);
-            }
-        }
-
-        /* =====================================================================
-           FORMATO DE MONEDA (QUETZALES)
-        ===================================================================== */
         function formatQuetzales(amount) {
             return 'Q' + Number(amount).toLocaleString('es-GT', {
                 minimumFractionDigits: 2,
@@ -893,9 +762,6 @@
             });
         }
 
-        /* =====================================================================
-           RENDERIZADO DE FILTROS Y CATÁLOGO
-        ===================================================================== */
         function renderCategoryTabs() {
             const container = document.getElementById('categoryTabs');
             container.innerHTML = CATEGORIES.map(cat => {
@@ -978,7 +844,6 @@
             const filtered = getFilteredProducts();
             resultsCount.textContent = `Mostrando ${filtered.length} ${filtered.length === 1 ? 'prenda única' : 'prendas únicas'}`;
 
-            // Mostrar botón de limpiar filtros si hay alguno activo
             const hasActiveFilters = filters.category !== 'Todas' || filters.size !== 'Todas' || filters.condition !== 'Todos' || filters.search.trim() !== '';
             resetBtn.classList.toggle('hidden', !hasActiveFilters);
 
@@ -993,7 +858,6 @@
             grid.classList.remove('hidden');
             emptyState.classList.add('hidden');
 
-            // Paginación para rendimiento óptimo con 300+ prendas
             const paginatedItems = filtered.slice(0, visibleLimit);
             if (filtered.length > visibleLimit) {
                 loadMoreContainer.classList.remove('hidden');
@@ -1009,7 +873,6 @@
 
                 return `
                     <article class="group bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                        <!-- Imagen de la prenda con etiquetas -->
                         <div class="relative aspect-[4/5] bg-cream-100 overflow-hidden cursor-pointer" onclick="openProductModal('${product.id}')">
                             <img 
                                 src="${product.image}" 
@@ -1019,7 +882,6 @@
                                 loading="lazy"
                             >
                             
-                            <!-- Etiquetas superiores -->
                             <div class="absolute top-3 left-3 right-3 flex items-start justify-between gap-2 pointer-events-none">
                                 <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold shadow-xs backdrop-blur-md ${badgeStyle}">
                                     ${product.condition}
@@ -1029,7 +891,6 @@
                                 </span>
                             </div>
 
-                            <!-- Etiqueta flotante de Talla -->
                             <div class="absolute bottom-3 left-3">
                                 <span class="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-white/95 text-charcoal-900 text-xs font-bold shadow-sm border border-cream-200">
                                     Talla ${product.size}
@@ -1037,7 +898,6 @@
                             </div>
                         </div>
 
-                        <!-- Contenido de la tarjeta -->
                         <div class="p-5 flex-1 flex flex-col">
                             <div class="text-[11px] font-medium text-sage-600 uppercase tracking-wider mb-1">
                                 ${product.category}
@@ -1057,7 +917,6 @@
                                 </p>
                             ` : '<div class="mb-4"></div>'}
 
-                            <!-- Precio y Botones -->
                             <div class="mt-auto pt-3 border-t border-cream-100">
                                 <div class="flex items-baseline justify-between mb-3">
                                     <span class="text-xs text-charcoal-800/60">Precio</span>
@@ -1102,9 +961,6 @@
             }
         }
 
-        /* =====================================================================
-           MANEJADORES DE FILTROS Y PAGINACIÓN
-        ===================================================================== */
         function loadMoreProducts() {
             visibleLimit += ITEMS_PER_PAGE;
             renderProducts();
@@ -1139,7 +995,6 @@
         function handleSearch(value) {
             filters.search = value;
             visibleLimit = ITEMS_PER_PAGE;
-            // Sincronizar inputs desktop y móvil
             document.getElementById('searchInputDesktop').value = value;
             document.getElementById('searchInputMobile').value = value;
             renderProducts();
@@ -1164,9 +1019,168 @@
             renderProducts();
         }
 
-        /* =====================================================================
-           MODAL DE CONEXIÓN A GOOGLE SHEETS (.CSV)
-        ===================================================================== */
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const isInCart = cart.includes(product.id);
+            const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Prenda+Curada';
+            const modal = document.getElementById('productDetailModal');
+            const body = document.getElementById('productModalBody');
+
+            body.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+                    <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-cream-100 border border-cream-200">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col justify-between h-full space-y-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sage-100 text-sage-700">${product.condition}</span>
+                                <span class="text-xs text-charcoal-800/60">${product.category}</span>
+                            </div>
+                            <h3 class="font-serif text-3xl font-bold text-charcoal-900 leading-tight mb-2">${product.name}</h3>
+                            <p class="font-serif text-3xl font-bold text-sage-600 mb-4">${formatQuetzales(product.price)}</p>
+
+                            <div class="bg-cream-50 rounded-2xl p-3.5 border border-cream-200 space-y-2 mb-4">
+                                <div class="flex items-center justify-between text-xs">
+                                    <span class="text-charcoal-800/65">Talla etiquetada:</span>
+                                    <span class="font-bold text-charcoal-900 px-2.5 py-0.5 bg-white rounded-lg border border-cream-200">${product.size}</span>
+                                </div>
+                                ${product.measurements ? `
+                                <div class="text-xs pt-2 border-t border-cream-200/70">
+                                    <span class="block text-charcoal-800/65 mb-0.5">Medidas reales:</span>
+                                    <span class="font-semibold text-charcoal-900">${product.measurements}</span>
+                                </div>` : ''}
+                            </div>
+
+                            <p class="text-sm text-charcoal-800/80 leading-relaxed">${product.description}</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-cream-100">
+                            <button 
+                                onclick="toggleProductInCart('${product.id}'); closeProductModal();"
+                                class="w-full py-3.5 px-5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all ${
+                                    isInCart 
+                                    ? 'bg-terracotta-100 text-terracotta-600 hover:bg-terracotta-500 hover:text-white' 
+                                    : 'bg-charcoal-900 hover:bg-sage-600 text-cream-50 shadow-md'
+                                }"
+                            >
+                                <i class="ph ${isInCart ? 'ph-trash' : 'ph-bag-plus'} text-lg"></i>
+                                <span>${isInCart ? 'Quitar de Mi Selección' : 'Apartar esta prenda única'}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productDetailModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function toggleProductInCart(productId) {
+            const index = cart.indexOf(productId);
+            if (index > -1) {
+                cart.splice(index, 1);
+                showToast('Prenda retirada de tu selección', 'ph-info');
+            } else {
+                cart.push(productId);
+                showToast('¡Prenda única apartada en tu bolsa!', 'ph-check-circle');
+            }
+            saveCartToStorage();
+            renderProducts();
+            updateCartUI();
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            const backdrop = document.getElementById('cartDrawerBackdrop');
+            const isClosed = drawer.classList.contains('translate-x-full');
+
+            if (isClosed) {
+                backdrop.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const container = document.getElementById('cartItemsContainer');
+            const summaryCount = document.getElementById('cartSummaryCount');
+            const totalAmount = document.getElementById('cartTotalAmount');
+            const checkoutBtn = document.getElementById('whatsappCheckoutBtn');
+
+            const selectedProducts = products.filter(p => cart.includes(p.id));
+            badge.textContent = selectedProducts.length;
+            summaryCount.textContent = `${selectedProducts.length} ${selectedProducts.length === 1 ? 'pieza' : 'piezas'}`;
+
+            const total = selectedProducts.reduce((sum, item) => sum + Number(item.price), 0);
+            totalAmount.textContent = formatQuetzales(total);
+            checkoutBtn.disabled = selectedProducts.length === 0;
+
+            if (selectedProducts.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-cream-100 text-charcoal-800/35 flex items-center justify-center mb-4">
+                            <i class="ph ph-bag text-3xl"></i>
+                        </div>
+                        <h4 class="font-serif text-2xl font-semibold text-charcoal-900 mb-1">Tu bolsa está vacía</h4>
+                        <p class="text-xs text-charcoal-800/65 max-w-xs">
+                            Explora el catálogo y agrega las prendas únicas que quieras apartar.
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = selectedProducts.map(item => `
+                <div class="flex gap-3.5 bg-white p-3.5 rounded-2xl border border-cream-200 shadow-xs">
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-24 rounded-xl object-cover bg-cream-100 shrink-0">
+                    <div class="flex-1 min-w-0 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2">
+                                <h5 class="font-serif text-lg font-bold text-charcoal-900 leading-tight truncate">${item.name}</h5>
+                                <button onclick="toggleProductInCart('${item.id}')" class="text-charcoal-800/40 hover:text-terracotta-600 p-1" title="Quitar">
+                                    <i class="ph ph-trash text-base"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-charcoal-800/65 mt-0.5">Talla: <strong>${item.size}</strong> • ${item.condition}</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-[11px] text-sage-600 font-medium">1 pieza única</span>
+                            <span class="font-serif text-lg font-bold text-charcoal-900">${formatQuetzales(item.price)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function sendWhatsAppOrder() {
+            const selectedProducts = products.filter(p => cart.includes(p.id));
+            if (selectedProducts.length === 0) return;
+
+            const cleanPhone = storeSettings.whatsapp.replace(/\D/g, '');
+            const total = selectedProducts.reduce((sum, item) => sum + Number(item.price), 0);
+
+            let message = `¡Hola *${storeSettings.name}*! 👋 Me gustaría apartar estas prendas únicas:\n\n`;
+            selectedProducts.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* (Talla ${item.size}) - ${formatQuetzales(item.price)}\n`;
+            });
+            message += `\n*Total estimado:* ${formatQuetzales(total)}\n¿Me confirman disponibilidad?`;
+
+            const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+
         function openConnectModal() {
             document.getElementById('sheetCsvInput').value = storeSettings.sheetCsv || '';
             document.getElementById('connectStoreName').value = storeSettings.name || DEFAULT_STORE_NAME;
@@ -1221,9 +1235,6 @@
             await fetchProductsFromGoogleSheet(csvUrl, true);
         }
 
-        /* =====================================================================
-           CONFIGURACIÓN DE LA TIENDA (NOMBRE Y WHATSAPP)
-        ===================================================================== */
         function openStoreSettingsModal() {
             document.getElementById('settingsStoreName').value = storeSettings.name;
             document.getElementById('settingsWhatsapp').value = storeSettings.whatsapp;
@@ -1255,9 +1266,6 @@
             document.title = `${storeSettings.name} | Boutique Pre-Loved & Segunda Mano`;
         }
 
-        /* =====================================================================
-           UTILIDAD: NOTIFICACIÓN TOAST
-        ===================================================================== */
         let toastTimeout;
         function showToast(message, iconClass = 'ph-check-circle') {
             const toast = document.getElementById('toastNotification');
