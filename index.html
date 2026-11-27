@@ -865,12 +865,7 @@
 
             return items;
         }
-            } catch (e) {
-                console.error('Error leyendo almacenamiento local:', e);
-                products = [...DEFAULT_PRODUCTS];
-                cart = [];
-            }
-        }
+            
 
         function saveProductsToStorage() {
             try {
