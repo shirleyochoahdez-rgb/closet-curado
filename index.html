@@ -248,7 +248,7 @@
                     <h4 class="text-xs font-bold uppercase tracking-wider text-charcoal-900 mb-3">¿Cómo comprar?</h4>
                     <ul class="space-y-2 text-xs text-charcoal-800/75">
                         <li class="flex items-start gap-2"><span class="font-bold text-sage-600">1.</span> Filtra por categoría, talla o busca lo que necesites.</li>
-                        <li class="flex items-start gap-2"><span class="font-bold text-sage-600">2.</span> Agrega tus favoritos a "Mi Selección".</li>
+                        <li class="flex items-start gap-2"><span class="font-bold text-sage-600">2.</span> Agrega tus favoritos a "Mi Selección" (y elige cantidad en artículos con existencias).</li>
                         <li class="flex items-start gap-2"><span class="font-bold text-sage-600">3.</span> Envía tu lista por WhatsApp para coordinar pago y envío.</li>
                     </ul>
                 </div>
@@ -294,8 +294,8 @@
 
         <div id="cartFooter" class="p-6 bg-white border-t border-cream-200">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-sm text-charcoal-800/75">Artículos seleccionados:</span>
-                <span id="cartSummaryCount" class="text-sm font-semibold text-charcoal-900">0 artículos</span>
+                <span class="text-sm text-charcoal-800/75">Unidades seleccionadas:</span>
+                <span id="cartSummaryCount" class="text-sm font-semibold text-charcoal-900">0 unidades</span>
             </div>
             <div class="flex items-center justify-between mb-5 pb-4 border-b border-cream-100">
                 <span class="text-base font-semibold text-charcoal-900">Total estimado:</span>
@@ -436,6 +436,7 @@
                 category: 'Prendas de arriba',
                 size: 'M',
                 price: 85.00,
+                stock: 1,
                 condition: 'Como nuevo',
                 measurements: 'Busto: 96 cm • Largo: 60 cm',
                 description: 'Blusa ligera 100% lino natural con botones frontales tipo coco y cuello relajado.',
@@ -447,6 +448,7 @@
                 category: 'Prendas de abajo',
                 size: '7/8',
                 price: 135.00,
+                stock: 1,
                 condition: 'Vintage',
                 measurements: 'Cintura: 70 cm • Cadera: 96 cm • Largo: 98 cm',
                 description: 'Denim rígido de alta calidad en lavado azul claro clásico.',
@@ -458,6 +460,7 @@
                 category: 'Joyería',
                 size: '',
                 price: 55.00,
+                stock: 7,
                 condition: 'Como nuevo',
                 measurements: '',
                 description: 'Cadena fina tono dorado que combina con todo, ideal para diario.',
@@ -465,14 +468,15 @@
             },
             {
                 id: 'prod-4',
-                name: 'Tinta de Labios Tono Rosa Frambuesa',
-                category: 'Maquillaje',
+                name: 'Exfoliante Corporal Suave de Coco',
+                category: 'Cuidado personal',
                 size: '',
                 price: 45.00,
+                stock: 3,
                 condition: 'Como nuevo',
                 measurements: '',
-                description: 'Acabado natural de larga duración, fácil de difuminar.',
-                image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80'
+                description: 'Textura exfoliante suave para dejar la piel fresca y renovada.',
+                image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80'
             }
         ];
 
@@ -502,6 +506,7 @@
         };
 
         let products = [];
+        // cart es un arreglo de objetos: [{ id: '...', qty: 1 }]
         let cart = [];
         let visibleLimit = ITEMS_PER_PAGE;
         let isAdminMode = false;
@@ -521,6 +526,17 @@
 
         function isNonApparelCategory(category) {
             return NON_APPAREL_CATEGORIES.some(c => c.toLowerCase() === (category || '').toLowerCase());
+        }
+
+        function getMaxStock(product) {
+            if (!product) return 1;
+            if (!isNonApparelCategory(product.category)) return 1;
+            const parsed = parseInt(product.stock, 10);
+            return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+        }
+
+        function getCartItem(productId) {
+            return cart.find(item => item.id === productId);
         }
 
         function getAvailableSizesForCategory(category) {
@@ -561,7 +577,6 @@
                 return ['Todas', ...allSizes];
             }
 
-            // Otras categorías de ropa (Prendas de arriba, Vestidos y Enterizos, Abrigos y Chaquetas)
             const topSizes = [...TOP_APPAREL_SIZES];
             const seen = new Set(topSizes.map(s => s.toLowerCase()));
             products
@@ -590,7 +605,7 @@
                 await fetchProductsFromGoogleSheet(storeSettings.sheetCsv, false);
             } else {
                 products = [...DEFAULT_PRODUCTS];
-                cleanupInvalidCartItems();
+                sanitizeCartAgainstProducts();
                 renderCategoryTabs();
                 renderSizeFilters();
                 renderProducts();
@@ -618,8 +633,23 @@
                     };
                 }
 
-                const savedCart = localStorage.getItem('closetCurado_cart_v1');
-                cart = savedCart ? JSON.parse(savedCart) : [];
+                const savedCart = localStorage.getItem('closetCurado_cart_v2');
+                if (savedCart) {
+                    const parsedCart = JSON.parse(savedCart);
+                    cart = Array.isArray(parsedCart)
+                        ? parsedCart.map(entry => typeof entry === 'string'
+                            ? { id: entry, qty: 1 }
+                            : { id: entry.id, qty: Math.max(1, parseInt(entry.qty, 10) || 1) })
+                        : [];
+                } else {
+                    const legacyCart = localStorage.getItem('closetCurado_cart_v1');
+                    if (legacyCart) {
+                        const parsedLegacy = JSON.parse(legacyCart);
+                        cart = Array.isArray(parsedLegacy) ? parsedLegacy.map(id => ({ id, qty: 1 })) : [];
+                    } else {
+                        cart = [];
+                    }
+                }
             } catch (e) {
                 console.error('Error leyendo almacenamiento local:', e);
                 cart = [];
@@ -636,14 +666,22 @@
 
         function saveCartToStorage() {
             try {
-                localStorage.setItem('closetCurado_cart_v1', JSON.stringify(cart));
+                localStorage.setItem('closetCurado_cart_v2', JSON.stringify(cart));
             } catch (e) {
                 console.error('Error guardando selección:', e);
             }
         }
 
-        function cleanupInvalidCartItems() {
-            cart = cart.filter(id => products.some(p => p.id === id));
+        function sanitizeCartAgainstProducts() {
+            const nextCart = [];
+            cart.forEach(entry => {
+                const prod = products.find(p => p.id === entry.id);
+                if (!prod) return;
+                const maxStock = getMaxStock(prod);
+                const clampedQty = Math.min(Math.max(1, entry.qty || 1), maxStock);
+                nextCart.push({ id: prod.id, qty: clampedQty });
+            });
+            cart = nextCart;
             saveCartToStorage();
         }
 
@@ -668,7 +706,7 @@
 
                 products = parsedItems;
                 visibleLimit = ITEMS_PER_PAGE;
-                cleanupInvalidCartItems();
+                sanitizeCartAgainstProducts();
                 renderCategoryTabs();
                 renderSizeFilters();
                 renderProducts();
@@ -681,7 +719,7 @@
             } catch (error) {
                 console.error('Error sincronizando Google Sheets:', error);
                 products = [...DEFAULT_PRODUCTS];
-                cleanupInvalidCartItems();
+                sanitizeCartAgainstProducts();
                 renderCategoryTabs();
                 renderSizeFilters();
                 renderProducts();
@@ -735,6 +773,8 @@
                 h.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()
             );
 
+            const stockIdx = headers.indexOf('stock') !== -1 ? headers.indexOf('stock') : headers.indexOf('cantidad');
+
             const idx = {
                 id: headers.indexOf('id'),
                 nombre: headers.indexOf('nombre'),
@@ -745,7 +785,8 @@
                 disponible: headers.indexOf('disponible'),
                 imagen: headers.indexOf('imagen'),
                 descripcion: headers.indexOf('descripcion'),
-                medidas: headers.indexOf('medidas')
+                medidas: headers.indexOf('medidas'),
+                stock: stockIdx
             };
 
             const validCategories = [
@@ -784,6 +825,11 @@
                 const isNonApparel = isNonApparelCategory(matchedCat);
                 const finalSize = rawSize || (isNonApparel ? '' : 'Única');
 
+                const rawStock = idx.stock !== -1 ? parseInt((row[idx.stock] || '').replace(/[^0-9]/g, ''), 10) : NaN;
+                const stock = isNonApparel
+                    ? (Number.isFinite(rawStock) && rawStock > 0 ? rawStock : 1)
+                    : 1;
+
                 const rawDesc = idx.descripcion !== -1 ? (row[idx.descripcion] || '').trim() : '';
 
                 items.push({
@@ -792,6 +838,7 @@
                     category: matchedCat,
                     size: finalSize,
                     price: price,
+                    stock: stock,
                     condition: (idx.estado !== -1 && row[idx.estado]) ? row[idx.estado] : 'Excelente estado',
                     measurements: (idx.medidas !== -1 && row[idx.medidas]) ? row[idx.medidas] : '',
                     description: rawDesc,
@@ -933,10 +980,13 @@
             }
 
             grid.innerHTML = paginatedItems.map(product => {
-                const isInCart = cart.includes(product.id);
+                const cartItem = getCartItem(product.id);
+                const isInCart = Boolean(cartItem);
                 const badgeStyle = getConditionBadgeStyle(product.condition);
                 const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Still+Good+%26+Meymey';
-                const showSizeBadge = Boolean(product.size) && !isNonApparelCategory(product.category);
+                const isNonApparel = isNonApparelCategory(product.category);
+                const showSizeBadge = Boolean(product.size) && !isNonApparel;
+                const maxStock = getMaxStock(product);
 
                 return `
                     <article class="group bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
@@ -954,7 +1004,7 @@
                                     ${product.condition}
                                 </span>
                                 <span class="px-2.5 py-1 rounded-full bg-charcoal-900/85 text-cream-50 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-md">
-                                    Disponible
+                                    ${isNonApparel ? `${maxStock} ${maxStock === 1 ? 'disponible' : 'disponibles'}` : 'Disponible'}
                                 </span>
                             </div>
 
@@ -967,8 +1017,8 @@
                         </div>
 
                         <div class="p-5 flex-1 flex flex-col">
-                            <div class="text-[11px] font-medium text-sage-600 uppercase tracking-wider mb-1">
-                                ${product.category}
+                            <div class="flex items-center justify-between gap-2 text-[11px] font-medium text-sage-600 uppercase tracking-wider mb-1">
+                                <span>${product.category}</span>
                             </div>
                             
                             <h3 onclick="openProductModal('${product.id}')" class="font-serif text-xl font-bold text-charcoal-900 leading-snug mb-1.5 cursor-pointer hover:text-sage-600 transition-colors line-clamp-1">
@@ -988,7 +1038,7 @@
 
                             <div class="mt-auto pt-3 border-t border-cream-100">
                                 <div class="flex items-baseline justify-between mb-3">
-                                    <span class="text-xs text-charcoal-800/60">Precio</span>
+                                    <span class="text-xs text-charcoal-800/60">${isNonApparel ? `Existencias: <strong class="text-charcoal-900">${maxStock}</strong>` : 'Precio'}</span>
                                     <span class="font-serif text-2xl font-bold text-charcoal-900">${formatQuetzales(product.price)}</span>
                                 </div>
 
@@ -1009,7 +1059,7 @@
                                         }"
                                     >
                                         <i class="ph ${isInCart ? 'ph-check-circle text-base' : 'ph-bag-plus text-base'}"></i>
-                                        <span>${isInCart ? 'En tu bolsa' : 'Agregar'}</span>
+                                        <span>${isInCart ? (isNonApparel ? `En bolsa (${cartItem.qty})` : 'En tu bolsa') : 'Agregar'}</span>
                                     </button>
                                 </div>
                             </div>
@@ -1094,11 +1144,16 @@
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
-            const isInCart = cart.includes(product.id);
+            const cartItem = getCartItem(product.id);
+            const isInCart = Boolean(cartItem);
+            const isNonApparel = isNonApparelCategory(product.category);
+            const maxStock = getMaxStock(product);
+            const initialQty = cartItem ? cartItem.qty : 1;
+
             const fallbackImg = CATEGORY_FALLBACK_IMAGES[product.category] || 'https://placehold.co/600x750/F7F3EB/2A2927?text=Still+Good+%26+Meymey';
             const modal = document.getElementById('productDetailModal');
             const body = document.getElementById('productModalBody');
-            const showSizeRow = Boolean(product.size) && !isNonApparelCategory(product.category);
+            const showSizeRow = Boolean(product.size) && !isNonApparel;
 
             body.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
@@ -1114,35 +1169,60 @@
                             <h3 class="font-serif text-3xl font-bold text-charcoal-900 leading-tight mb-2">${product.name}</h3>
                             <p class="font-serif text-3xl font-bold text-sage-600 mb-4">${formatQuetzales(product.price)}</p>
 
-                            ${(showSizeRow || product.measurements) ? `
+                            ${(showSizeRow || product.measurements || isNonApparel) ? `
                             <div class="bg-cream-50 rounded-2xl p-3.5 border border-cream-200 space-y-2 mb-4">
                                 ${showSizeRow ? `
                                 <div class="flex items-center justify-between text-xs">
                                     <span class="text-charcoal-800/65">Talla:</span>
                                     <span class="font-bold text-charcoal-900 px-2.5 py-0.5 bg-white rounded-lg border border-cream-200">${product.size}</span>
                                 </div>` : ''}
+                                ${isNonApparel ? `
+                                <div class="flex items-center justify-between text-xs ${showSizeRow ? 'pt-2 border-t border-cream-200/70' : ''}">
+                                    <span class="text-charcoal-800/65">Disponibles:</span>
+                                    <span class="font-bold text-sage-700 px-2.5 py-0.5 bg-sage-100 rounded-lg">${maxStock} ${maxStock === 1 ? 'unidad' : 'unidades'}</span>
+                                </div>` : ''}
                                 ${product.measurements ? `
-                                <div class="text-xs ${showSizeRow ? 'pt-2 border-t border-cream-200/70' : ''}">
+                                <div class="text-xs ${(showSizeRow || isNonApparel) ? 'pt-2 border-t border-cream-200/70' : ''}">
                                     <span class="block text-charcoal-800/65 mb-0.5">Detalles / Medidas:</span>
                                     <span class="font-semibold text-charcoal-900">${product.measurements}</span>
                                 </div>` : ''}
                             </div>` : ''}
 
+                            ${isNonApparel ? `
+                            <div class="mb-4">
+                                <label class="block text-xs font-semibold text-charcoal-800/80 mb-1.5">
+                                    Cantidad a apartar (máximo ${maxStock}):
+                                </label>
+                                <div class="inline-flex items-center rounded-xl border border-cream-300 bg-cream-50 overflow-hidden">
+                                    <button type="button" onclick="adjustModalQty(-1, ${maxStock})" class="w-9 h-9 flex items-center justify-center text-charcoal-900 hover:bg-cream-200/70 font-bold transition-colors">
+                                        <i class="ph ph-minus text-sm"></i>
+                                    </button>
+                                    <input id="modalQtyInput" type="number" min="1" max="${maxStock}" value="${initialQty}" onchange="clampModalQty(${maxStock})" class="w-12 text-center text-sm font-bold bg-white text-charcoal-900 py-1.5 focus:outline-none">
+                                    <button type="button" onclick="adjustModalQty(1, ${maxStock})" class="w-9 h-9 flex items-center justify-center text-charcoal-900 hover:bg-cream-200/70 font-bold transition-colors">
+                                        <i class="ph ph-plus text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>` : ''}
+
                             ${product.description ? `<p class="text-sm text-charcoal-800/80 leading-relaxed whitespace-pre-line">${product.description}</p>` : ''}
                         </div>
 
-                        <div class="pt-4 border-t border-cream-100">
+                        <div class="pt-4 border-t border-cream-100 space-y-2">
                             <button 
-                                onclick="toggleProductInCart('${product.id}'); closeProductModal();"
-                                class="w-full py-3.5 px-5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all ${
-                                    isInCart 
-                                    ? 'bg-terracotta-100 text-terracotta-600 hover:bg-terracotta-500 hover:text-white' 
-                                    : 'bg-charcoal-900 hover:bg-sage-600 text-cream-50 shadow-md'
-                                }"
+                                onclick="saveFromProductModal('${product.id}')"
+                                class="w-full py-3.5 px-5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all bg-charcoal-900 hover:bg-sage-600 text-cream-50 shadow-md"
                             >
-                                <i class="ph ${isInCart ? 'ph-trash' : 'ph-bag-plus'} text-lg"></i>
-                                <span>${isInCart ? 'Quitar de Mi Selección' : 'Apartar este artículo'}</span>
+                                <i class="ph ph-bag-plus text-lg"></i>
+                                <span>${isInCart ? 'Actualizar en Mi Selección' : 'Apartar este artículo'}</span>
                             </button>
+                            ${isInCart ? `
+                            <button 
+                                type="button"
+                                onclick="toggleProductInCart('${product.id}'); closeProductModal();"
+                                class="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-terracotta-600 bg-terracotta-100/70 hover:bg-terracotta-100 transition-colors"
+                            >
+                                Quitar de Mi Selección
+                            </button>` : ''}
                         </div>
                     </div>
                 </div>
@@ -1152,6 +1232,54 @@
             modal.classList.add('flex');
         }
 
+        function adjustModalQty(delta, maxStock) {
+            const input = document.getElementById('modalQtyInput');
+            if (!input) return;
+            const current = parseInt(input.value, 10) || 1;
+            input.value = Math.min(maxStock, Math.max(1, current + delta));
+        }
+
+        function clampModalQty(maxStock) {
+            const input = document.getElementById('modalQtyInput');
+            if (!input) return;
+            const current = parseInt(input.value, 10) || 1;
+            input.value = Math.min(maxStock, Math.max(1, current));
+        }
+
+        function saveFromProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const isNonApparel = isNonApparelCategory(product.category);
+            const maxStock = getMaxStock(product);
+            let desiredQty = 1;
+
+            if (isNonApparel) {
+                const input = document.getElementById('modalQtyInput');
+                desiredQty = Math.min(maxStock, Math.max(1, parseInt(input?.value, 10) || 1));
+            }
+
+            const existing = getCartItem(productId);
+            if (existing) {
+                existing.qty = desiredQty;
+                showToast(
+                    isNonApparel ? `Cantidad actualizada a ${desiredQty} en tu bolsa` : 'Artículo actualizado en tu bolsa',
+                    'ph-check-circle'
+                );
+            } else {
+                cart.push({ id: productId, qty: desiredQty });
+                showToast(
+                    isNonApparel && desiredQty > 1 ? `¡${desiredQty} unidades agregadas a tu bolsa!` : '¡Artículo apartado en tu bolsa!',
+                    'ph-check-circle'
+                );
+            }
+
+            saveCartToStorage();
+            renderProducts();
+            updateCartUI();
+            closeProductModal();
+        }
+
         function closeProductModal() {
             const modal = document.getElementById('productDetailModal');
             modal.classList.add('hidden');
@@ -1159,14 +1287,41 @@
         }
 
         function toggleProductInCart(productId) {
-            const index = cart.indexOf(productId);
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const index = cart.findIndex(item => item.id === productId);
             if (index > -1) {
                 cart.splice(index, 1);
                 showToast('Artículo retirado de tu selección', 'ph-info');
             } else {
-                cart.push(productId);
+                const maxStock = getMaxStock(product);
+                cart.push({ id: productId, qty: Math.min(1, maxStock) });
                 showToast('¡Artículo apartado en tu bolsa!', 'ph-check-circle');
             }
+            saveCartToStorage();
+            renderProducts();
+            updateCartUI();
+        }
+
+        function changeCartItemQty(productId, delta) {
+            const product = products.find(p => p.id === productId);
+            const cartItem = getCartItem(productId);
+            if (!product || !cartItem) return;
+
+            const maxStock = getMaxStock(product);
+            const nextQty = cartItem.qty + delta;
+
+            if (nextQty <= 0) {
+                cart = cart.filter(item => item.id !== productId);
+                showToast('Artículo retirado de tu selección', 'ph-info');
+            } else if (nextQty > maxStock) {
+                cartItem.qty = maxStock;
+                showToast(`Solo hay ${maxStock} ${maxStock === 1 ? 'disponible' : 'disponibles'}`, 'ph-warning-circle');
+            } else {
+                cartItem.qty = nextQty;
+            }
+
             saveCartToStorage();
             renderProducts();
             updateCartUI();
@@ -1193,15 +1348,25 @@
             const totalAmount = document.getElementById('cartTotalAmount');
             const checkoutBtn = document.getElementById('whatsappCheckoutBtn');
 
-            const selectedProducts = products.filter(p => cart.includes(p.id));
-            badge.textContent = selectedProducts.length;
-            summaryCount.textContent = `${selectedProducts.length} ${selectedProducts.length === 1 ? 'artículo' : 'artículos'}`;
+            const entries = cart
+                .map(entry => {
+                    const product = products.find(p => p.id === entry.id);
+                    if (!product) return null;
+                    const maxStock = getMaxStock(product);
+                    const qty = Math.min(Math.max(1, entry.qty || 1), maxStock);
+                    return { product, qty, maxStock };
+                })
+                .filter(Boolean);
 
-            const total = selectedProducts.reduce((sum, item) => sum + Number(item.price), 0);
+            const totalUnits = entries.reduce((sum, e) => sum + e.qty, 0);
+            badge.textContent = totalUnits;
+            summaryCount.textContent = `${totalUnits} ${totalUnits === 1 ? 'unidad' : 'unidades'}`;
+
+            const total = entries.reduce((sum, e) => sum + Number(e.product.price) * e.qty, 0);
             totalAmount.textContent = formatQuetzales(total);
-            checkoutBtn.disabled = selectedProducts.length === 0;
+            checkoutBtn.disabled = entries.length === 0;
 
-            if (selectedProducts.length === 0) {
+            if (entries.length === 0) {
                 container.innerHTML = `
                     <div class="h-full flex flex-col items-center justify-center text-center py-12">
                         <div class="w-16 h-16 rounded-full bg-cream-100 text-charcoal-800/35 flex items-center justify-center mb-4">
@@ -1216,24 +1381,40 @@
                 return;
             }
 
-            container.innerHTML = selectedProducts.map(item => {
-                const showSize = Boolean(item.size) && !isNonApparelCategory(item.category);
+            container.innerHTML = entries.map(({ product, qty, maxStock }) => {
+                const isNonApparel = isNonApparelCategory(product.category);
+                const showSize = Boolean(product.size) && !isNonApparel;
+                const lineSubtotal = Number(product.price) * qty;
+
                 return `
                 <div class="flex gap-3.5 bg-white p-3.5 rounded-2xl border border-cream-200 shadow-xs">
-                    <img src="${item.image}" alt="${item.name}" class="w-20 h-24 rounded-xl object-cover bg-cream-100 shrink-0">
+                    <img src="${product.image}" alt="${product.name}" class="w-20 h-24 rounded-xl object-cover bg-cream-100 shrink-0">
                     <div class="flex-1 min-w-0 flex flex-col justify-between">
                         <div>
                             <div class="flex items-start justify-between gap-2">
-                                <h5 class="font-serif text-lg font-bold text-charcoal-900 leading-tight truncate">${item.name}</h5>
-                                <button onclick="toggleProductInCart('${item.id}')" class="text-charcoal-800/40 hover:text-terracotta-600 p-1" title="Quitar">
+                                <h5 class="font-serif text-lg font-bold text-charcoal-900 leading-tight truncate">${product.name}</h5>
+                                <button onclick="toggleProductInCart('${product.id}')" class="text-charcoal-800/40 hover:text-terracotta-600 p-1" title="Quitar">
                                     <i class="ph ph-trash text-base"></i>
                                 </button>
                             </div>
-                            <p class="text-xs text-charcoal-800/65 mt-0.5">${showSize ? `Talla: <strong>${item.size}</strong> • ` : ''}${item.condition}</p>
+                            <p class="text-xs text-charcoal-800/65 mt-0.5">${showSize ? `Talla: <strong>${product.size}</strong> • ` : ''}${product.condition}</p>
+                            ${isNonApparel ? `<p class="text-[11px] text-sage-700 font-medium mt-0.5">Disponibles en tienda: ${maxStock}</p>` : ''}
                         </div>
-                        <div class="flex items-center justify-between mt-2">
-                            <span class="text-[11px] text-sage-600 font-medium">${item.category}</span>
-                            <span class="font-serif text-lg font-bold text-charcoal-900">${formatQuetzales(item.price)}</span>
+
+                        <div class="flex items-center justify-between gap-2 mt-2">
+                            ${isNonApparel ? `
+                            <div class="inline-flex items-center rounded-lg border border-cream-300 bg-cream-50 overflow-hidden">
+                                <button type="button" onclick="changeCartItemQty('${product.id}', -1)" class="w-7 h-7 flex items-center justify-center text-charcoal-900 hover:bg-cream-200/70 transition-colors" title="Disminuir cantidad">
+                                    <i class="ph ph-minus text-xs font-bold"></i>
+                                </button>
+                                <span class="px-2.5 text-xs font-bold text-charcoal-900 bg-white h-7 flex items-center">${qty}</span>
+                                <button type="button" onclick="changeCartItemQty('${product.id}', 1)" ${qty >= maxStock ? 'disabled' : ''} class="w-7 h-7 flex items-center justify-center text-charcoal-900 hover:bg-cream-200/70 disabled:opacity-35 disabled:cursor-not-allowed transition-colors" title="Aumentar cantidad">
+                                    <i class="ph ph-plus text-xs font-bold"></i>
+                                </button>
+                            </div>` : `
+                            <span class="text-[11px] text-sage-600 font-medium">${product.category}</span>`}
+
+                            <span class="font-serif text-lg font-bold text-charcoal-900">${formatQuetzales(lineSubtotal)}</span>
                         </div>
                     </div>
                 </div>
@@ -1242,17 +1423,29 @@
         }
 
         function sendWhatsAppOrder() {
-            const selectedProducts = products.filter(p => cart.includes(p.id));
-            if (selectedProducts.length === 0) return;
+            const entries = cart
+                .map(entry => {
+                    const product = products.find(p => p.id === entry.id);
+                    if (!product) return null;
+                    const maxStock = getMaxStock(product);
+                    const qty = Math.min(Math.max(1, entry.qty || 1), maxStock);
+                    return { product, qty };
+                })
+                .filter(Boolean);
+
+            if (entries.length === 0) return;
 
             const cleanPhone = storeSettings.whatsapp.replace(/\D/g, '');
-            const total = selectedProducts.reduce((sum, item) => sum + Number(item.price), 0);
+            const total = entries.reduce((sum, e) => sum + Number(e.product.price) * e.qty, 0);
 
             let message = `¡Hola *${storeSettings.name}*! 👋 Me gustaría apartar estos artículos:\n\n`;
-            selectedProducts.forEach((item, index) => {
-                const showSize = Boolean(item.size) && !isNonApparelCategory(item.category);
-                const sizeText = showSize ? ` (Talla ${item.size})` : '';
-                message += `${index + 1}. *${item.name}*${sizeText} - ${formatQuetzales(item.price)}\n`;
+            entries.forEach(({ product, qty }, index) => {
+                const isNonApparel = isNonApparelCategory(product.category);
+                const showSize = Boolean(product.size) && !isNonApparel;
+                const sizeText = showSize ? ` (Talla ${product.size})` : '';
+                const qtyText = isNonApparel ? ` [x${qty}]` : '';
+                const subtotal = Number(product.price) * qty;
+                message += `${index + 1}. *${product.name}*${sizeText}${qtyText} - ${formatQuetzales(subtotal)}\n`;
             });
             message += `\n*Total estimado:* ${formatQuetzales(total)}\n¿Me confirman disponibilidad?`;
 
@@ -1297,7 +1490,7 @@
             } else {
                 products = [...DEFAULT_PRODUCTS];
                 document.getElementById('syncStatusBar').classList.add('hidden');
-                cleanupInvalidCartItems();
+                sanitizeCartAgainstProducts();
                 renderCategoryTabs();
                 renderSizeFilters();
                 renderProducts();
