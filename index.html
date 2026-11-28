@@ -125,13 +125,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
             <div class="max-w-2xl">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold tracking-wide uppercase mb-4">
-                    <i class="ph ph-leaf"></i> Catálogo • Piezas Únicas
+                    <i class="ph ph-leaf"></i> Catálogo Curado • Piezas Únicas
                 </span>
                 <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-charcoal-900 leading-[1.12] mb-4">
                     Prendas con alma, listas para su <span class="italic text-sage-600">segunda historia</span>.
                 </h2>
                 <p class="text-charcoal-800/75 text-sm sm:text-base leading-relaxed mb-6">
-                    Al ser prendas únicas de segunda mano, solo hay una unidad disponible por estilo. Además, en <strong>Chuncheretes Meymey</strong> reunimos joyería, cuidado personal, maquillaje, accesorios y chuncheretes lindos para completar tu estilo. ¡Aparta tus favoritos antes de que vuelen!
+                    Cada pieza ha sido inspeccionada, higienizada y medida cuidadosamente. Al ser prendas únicas de segunda mano, solo hay una unidad disponible por estilo. Además, en <strong>Chuncheretes Meymey</strong> reunimos joyería, cuidado personal, maquillaje, accesorios y chuncheretes lindos para completar tu estilo. ¡Aparta tus favoritos antes de que vuelen!
                 </p>
                 <div class="flex flex-wrap items-center gap-4 text-xs text-charcoal-800/70">
                     <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-check-circle text-sage-600 text-base"></i> Calidad verificada</span>
@@ -160,10 +160,10 @@
         </div>
 
         <!-- Barra Secundaria: Filtro Rápido por Talla, Estado y Orden -->
-        <div class="bg-white rounded-2xl p-4 border border-cream-200 shadow-sm mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div id="secondaryFiltersBar" class="bg-white rounded-2xl p-4 border border-cream-200 shadow-sm mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             
-            <!-- Filtro de Tallas -->
-            <div class="flex flex-wrap items-center gap-2">
+            <!-- Filtro de Tallas (Se oculta automáticamente en categorías que no son ropa) -->
+            <div id="sizeFilterWrapper" class="flex flex-wrap items-center gap-2">
                 <span class="text-xs font-semibold text-charcoal-800/70 mr-1 flex items-center gap-1">
                     <i class="ph ph-ruler text-sage-600 text-sm"></i> Talla:
                 </span>
@@ -171,7 +171,7 @@
             </div>
 
             <!-- Filtro de Estado y Ordenamiento -->
-            <div class="flex flex-wrap items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-cream-100">
+            <div id="conditionSortWrapper" class="flex flex-wrap items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-cream-100">
                 <div class="flex items-center gap-2">
                     <label for="conditionFilter" class="text-xs font-semibold text-charcoal-800/70">Estado:</label>
                     <select id="conditionFilter" onchange="handleConditionChange(this.value)" class="text-xs font-medium bg-cream-50 border border-cream-200 rounded-xl px-3 py-2 text-charcoal-900 focus:outline-none focus:ring-2 focus:ring-sage-500/40">
@@ -427,6 +427,8 @@
             'Chuncheretes'
         ];
 
+        const TOP_APPAREL_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'Única'];
+
         const DEFAULT_PRODUCTS = [
             {
                 id: 'prod-1',
@@ -443,7 +445,7 @@
                 id: 'prod-2',
                 name: 'Mom Jeans Vintage Tiro Alto',
                 category: 'Prendas de abajo',
-                size: 'S',
+                size: '7/8',
                 price: 135.00,
                 condition: 'Vintage',
                 measurements: 'Cintura: 70 cm • Cadera: 96 cm • Largo: 98 cm',
@@ -487,8 +489,6 @@
             { id: 'Chuncheretes', label: 'Chuncheretes', icon: 'ph-sparkle' }
         ];
 
-        const SIZES = ['Todas', 'XS', 'S', 'M', 'L', 'XL', 'Única'];
-
         const CATEGORY_FALLBACK_IMAGES = {
             'Prendas de arriba': 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=800&q=80',
             'Prendas de abajo': 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&w=800&q=80',
@@ -523,6 +523,60 @@
             return NON_APPAREL_CATEGORIES.some(c => c.toLowerCase() === (category || '').toLowerCase());
         }
 
+        function getAvailableSizesForCategory(category) {
+            if (isNonApparelCategory(category)) {
+                return [];
+            }
+
+            if (category === 'Prendas de abajo') {
+                const bottomSizes = [];
+                const seen = new Set();
+                products
+                    .filter(p => p.category === 'Prendas de abajo' && p.size && p.size.trim() !== '')
+                    .forEach(p => {
+                        const clean = p.size.trim();
+                        const key = clean.toLowerCase();
+                        if (!seen.has(key)) {
+                            seen.add(key);
+                            bottomSizes.push(clean);
+                        }
+                    });
+                bottomSizes.sort((a, b) => a.localeCompare(b, 'es', { numeric: true }));
+                return ['Todas', ...bottomSizes];
+            }
+
+            if (category === 'Todas') {
+                const allSizes = [...TOP_APPAREL_SIZES];
+                const seen = new Set(allSizes.map(s => s.toLowerCase()));
+                products
+                    .filter(p => !isNonApparelCategory(p.category) && p.size && p.size.trim() !== '')
+                    .forEach(p => {
+                        const clean = p.size.trim();
+                        const key = clean.toLowerCase();
+                        if (!seen.has(key)) {
+                            seen.add(key);
+                            allSizes.push(clean);
+                        }
+                    });
+                return ['Todas', ...allSizes];
+            }
+
+            // Otras categorías de ropa (Prendas de arriba, Vestidos y Enterizos, Abrigos y Chaquetas)
+            const topSizes = [...TOP_APPAREL_SIZES];
+            const seen = new Set(topSizes.map(s => s.toLowerCase()));
+            products
+                .filter(p => p.category === category && p.size && p.size.trim() !== '')
+                .forEach(p => {
+                    const clean = p.size.trim();
+                    const key = clean.toLowerCase();
+                    if (!seen.has(key)) {
+                        seen.add(key);
+                        topSizes.push(clean);
+                    }
+                });
+            return ['Todas', ...topSizes];
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             isAdminMode = params.get('admin') === '1';
@@ -538,6 +592,7 @@
                 products = [...DEFAULT_PRODUCTS];
                 cleanupInvalidCartItems();
                 renderCategoryTabs();
+                renderSizeFilters();
                 renderProducts();
                 updateCartUI();
             }
@@ -615,6 +670,7 @@
                 visibleLimit = ITEMS_PER_PAGE;
                 cleanupInvalidCartItems();
                 renderCategoryTabs();
+                renderSizeFilters();
                 renderProducts();
                 updateCartUI();
 
@@ -627,6 +683,7 @@
                 products = [...DEFAULT_PRODUCTS];
                 cleanupInvalidCartItems();
                 renderCategoryTabs();
+                renderSizeFilters();
                 renderProducts();
                 updateCartUI();
 
@@ -780,12 +837,31 @@
         }
 
         function renderSizeFilters() {
+            const wrapper = document.getElementById('sizeFilterWrapper');
+            const conditionSortWrapper = document.getElementById('conditionSortWrapper');
             const container = document.getElementById('sizeFilters');
-            container.innerHTML = SIZES.map(size => {
-                const isActive = filters.size === size;
+
+            const availableSizes = getAvailableSizesForCategory(filters.category);
+
+            if (availableSizes.length === 0) {
+                wrapper.classList.add('hidden');
+                conditionSortWrapper.classList.remove('pt-3', 'lg:pt-0', 'border-t', 'lg:border-t-0', 'border-cream-100');
+                filters.size = 'Todas';
+                return;
+            }
+
+            wrapper.classList.remove('hidden');
+            conditionSortWrapper.classList.add('pt-3', 'lg:pt-0', 'border-t', 'lg:border-t-0', 'border-cream-100');
+
+            if (!availableSizes.some(s => s.toLowerCase() === filters.size.toLowerCase())) {
+                filters.size = 'Todas';
+            }
+
+            container.innerHTML = availableSizes.map(size => {
+                const isActive = filters.size.toLowerCase() === size.toLowerCase();
                 return `
                     <button 
-                        onclick="handleSizeChange('${size}')"
+                        onclick="handleSizeChange('${size.replace(/'/g, "\\'")}')"
                         class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                             isActive 
                             ? 'bg-sage-600 text-white shadow-xs' 
@@ -961,8 +1037,10 @@
 
         function handleCategoryChange(category) {
             filters.category = category;
+            filters.size = 'Todas';
             visibleLimit = ITEMS_PER_PAGE;
             renderCategoryTabs();
+            renderSizeFilters();
             renderProducts();
         }
 
@@ -1221,6 +1299,7 @@
                 document.getElementById('syncStatusBar').classList.add('hidden');
                 cleanupInvalidCartItems();
                 renderCategoryTabs();
+                renderSizeFilters();
                 renderProducts();
                 updateCartUI();
                 showToast('Catálogo de demostración restaurado', 'ph-arrows-clockwise');
